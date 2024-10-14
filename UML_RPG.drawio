@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="24.7.17">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1434" dy="1949" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="714" dy="1999" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -19,13 +19,13 @@
         <mxCell id="WCrjE4zs8tKZNm7IgE43-4" value="Jogador" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="1290" y="170" width="160" height="270" as="geometry" />
         </mxCell>
-        <mxCell id="WCrjE4zs8tKZNm7IgE43-5" value="- nome: str&lt;div&gt;- batalhas: int&lt;/div&gt;&lt;div&gt;- vitorias: int&lt;/div&gt;&lt;div&gt;- parties: []&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="WCrjE4zs8tKZNm7IgE43-4" vertex="1">
+        <mxCell id="WCrjE4zs8tKZNm7IgE43-5" value="- nome: str&lt;div&gt;- batalhas: []&lt;/div&gt;&lt;div&gt;- vitorias: int&lt;/div&gt;&lt;div&gt;- parties: []&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="WCrjE4zs8tKZNm7IgE43-4" vertex="1">
           <mxGeometry y="26" width="160" height="74" as="geometry" />
         </mxCell>
         <mxCell id="WCrjE4zs8tKZNm7IgE43-6" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="WCrjE4zs8tKZNm7IgE43-4" vertex="1">
           <mxGeometry y="100" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="WCrjE4zs8tKZNm7IgE43-7" value="&lt;div&gt;+ &amp;lt;&amp;lt;create&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;__init__(nome)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ nome(): str&lt;/div&gt;&lt;div&gt;+ nome(str)&lt;/div&gt;+ batalhas(): int&lt;div&gt;+ batalhas(int)&lt;/div&gt;&lt;div&gt;+ vitorias(): int&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ vitorias(int)&lt;/div&gt;&lt;div&gt;+ parties(): []&lt;/div&gt;&lt;div&gt;+ parties(Party)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="WCrjE4zs8tKZNm7IgE43-4" vertex="1">
+        <mxCell id="WCrjE4zs8tKZNm7IgE43-7" value="&lt;div&gt;+ &amp;lt;&amp;lt;create&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;__init__(nome)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ nome(): str&lt;/div&gt;&lt;div&gt;+ nome(str)&lt;/div&gt;+ add_batalha(Batalha)&lt;div&gt;+ remove_batalha(Batalha)&lt;/div&gt;&lt;div&gt;+ batalhas(): []&lt;/div&gt;&lt;div&gt;+ vitorias(): int&lt;/div&gt;&lt;div&gt;+ parties(): []&lt;/div&gt;&lt;div&gt;+ parties(Party)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="WCrjE4zs8tKZNm7IgE43-4" vertex="1">
           <mxGeometry y="108" width="160" height="162" as="geometry" />
         </mxCell>
         <mxCell id="WCrjE4zs8tKZNm7IgE43-8" value="party" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
