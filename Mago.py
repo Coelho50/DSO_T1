@@ -2,12 +2,16 @@ from Personagem import Personagem
 
 class Mago(Personagem):
 	def __init__(self, nome: str, hp: float, item: str, dps: float, mana: float):
-		self.__dps = dps
-		self.__mana = mana
-		super.__init__(self, nome, hp, item):
-			self.__nome = nome
-			self.__hp = hp
-			self.__item = item
+		super.__init__(self, nome, hp, item)
+		self.__dps = None
+		self.__mana = None
+		if isinstance(dps, float):
+			self.__dps = dps
+		else:
+			raise ValueError("DPS") #padrozinar na tela
+		if isinstance(dps, float):
+			self.__dps = dps
+
 
 	@property
 	def dps(self): -> str
