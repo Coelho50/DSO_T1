@@ -1,0 +1,14 @@
+from abc import ABC, abstractmethod
+
+class AbstractTela(ABC):
+	@abstractmethod
+	def __init__(self):
+		pass
+
+	@abstractmethod
+	def mostra_menu():
+		pass
+
+	@abstractmethod
+	def le_opcao():
+		pass
