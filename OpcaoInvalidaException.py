@@ -1,5 +1,3 @@
-class OpcoesException(Exception):
+class OpcaoInvalidaException(Exception):
     def __init__(self):
-        super().__init__("nao foram passadas as opcoes do usuario")(Exception):
-    def __init__(self):
-        super().__init__("nao foram passadas as opcoes do usuario")
+        super().__init__("opcao fora do intervalo")
