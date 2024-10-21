@@ -14,13 +14,17 @@ class TelaPersonagem(AbstractTela):
 
 	#deve ser passado para a funcao o tamanho da lista de opcoes a serem escolhidas
 	def le_opcao(self, opcoes:int = 0):
-		if opcoes == 0:	#---------------------------------> perguntar ao professor
-			raise Exception("nao foram passadas as opcoes do usuario")  #-----> criar uma nova excecao?
+		if opcoes == 0:
+			raise OpcoesException
 		else:
-			while True:
-				try:
-					opcao = int(input("Escolha uma opção: "))
-				except ValueError:
-					print("Ocorreu um erro, selecione a opção com um número inteiro")
-				else:
-					return opcao  #------------>ainda aceitando opcao > opcoes
+			ler_ate_encontrar_opcao_valida(opcoes)
+
+	def ler_ate_encontrar_opcao_valida(self, opcoes):
+		while True:
+			try:
+				opcao = int(input("Escolha uma opção: "))
+			except ValueError:
+				print("Ocorreu um erro, selecione a opção com um número inteiro")
+			else:
+				return opcao  #------------>ainda aceitando opcao > opcoes
+
