@@ -1,5 +1,6 @@
-from Party import Party
-from Batalha import Batalha
+from entidades.Party import Party
+from entidades.Batalha import Batalha
+
 class Jogador:
     def __init__(self, nome: str):
         self.__nome=nome

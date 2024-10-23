@@ -1,12 +1,12 @@
-from Personagem import Personagem
-from Healer import Healer
-from Mago import Mago
-from Guerreiro import Guerreiro
-from TelaPersonagem import TelaPersonagem
+from entidades.Personagem import Personagem
+from entidades.Healer import Healer
+from entidades.Mago import Mago
+from entidades.Guerreiro import Guerreiro
+from telas.TelaPersonagem import TelaPersonagem
 
 #Controle responsavel pela lista de personagens. Instancia a tela de personagens a ser utilizada pelo usuario
 class ControladorPersonagem:
-	def __init__(self):
+	def __init__(self, controlador_principal):
 		self.__tela_personagem = TelaPersonagem(self)
 		self.__personagens_cadastrados = []
 

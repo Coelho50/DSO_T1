@@ -1,5 +1,5 @@
-from AbstractTela import AbstractTela
-from OpcaoInvalidaException import OpcaoInvalidaException
+from telas.AbstractTela import AbstractTela
+from excecoes.OpcaoInvalidaException import OpcaoInvalidaException
 
 class TelaPersonagem(AbstractTela):
 	def __init__(self, controlador_personagem):

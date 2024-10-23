@@ -1,4 +1,4 @@
-from Party import Party
+from entidades.Party import Party
 
 #Controle responsavel pelas parties do jogador. Instancia a tela de personagens a ser utilizada pelo usuario
 class ControladorParty():

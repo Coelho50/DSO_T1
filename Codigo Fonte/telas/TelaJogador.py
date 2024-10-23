@@ -1,6 +1,6 @@
 from AbstractTela import AbstractTela
 
-class TelaParty(AbstractTela):
+class TelaInicial(AbstractTela):
 	def __init__(self, controlador_party):
 		self.__controlador_party = controlador_party
 
