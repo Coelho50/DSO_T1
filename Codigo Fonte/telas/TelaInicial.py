@@ -13,5 +13,9 @@ class TelaInicial(AbstractTela):
 		print("2 - Parties")
 		print("3 - Personagens")
 		print("4 - Jogadores cadastrados")
+		print("5 - Encerrar sessão")
 		opcao = input("O que você deseja consultar?")
 		return opcao
+
+	def le_opcao(self):
+		pass

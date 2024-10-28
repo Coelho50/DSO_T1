@@ -1,5 +1,5 @@
-from Personagem import Personagem
-from Jogador import Jogador
+from entidades.Personagem import Personagem
+from entidades.Jogador import Jogador
 class Batalha:
     def __init__(self,jogador_1: Jogador,jogador_2: Jogador,party_1: int,party_2: int,vencedor: Jogador):
         self.__jogador_1=jogador_1

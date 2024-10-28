@@ -11,3 +11,6 @@ class TelaParty(AbstractTela):
 		print("3 - Listar personagens")
 		print("4 - Retornar ao menu principal")
 		print()
+
+	def le_opcao(self):
+		pass

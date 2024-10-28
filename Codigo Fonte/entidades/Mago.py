@@ -1,4 +1,4 @@
-from Personagem import Personagem
+from entidades.Personagem import Personagem
 
 class Mago(Personagem):
     def __init__(self, nome: str, hp: float, item: str, dps: float, mana: float):
