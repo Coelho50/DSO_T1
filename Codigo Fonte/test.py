@@ -14,6 +14,7 @@ arquivo usado APENAS PARA TESTES, DEVE SER EXCLUIDO ANTES DA VERSAO FINAL
 #----------------- CONTROLADOR PRINCIPAL -----------------
 
 main_control = ControladorPrincipal()
+main_control.abrir_sistema()
 
 
 #----------------- CONTROLADOR DE PERSONAGEM -----------------

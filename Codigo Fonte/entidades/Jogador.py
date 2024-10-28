@@ -1,5 +1,4 @@
 from entidades.Party import Party
-from entidades.Batalha import Batalha
 
 class Jogador:
     def __init__(self, nome: str):
@@ -22,7 +21,7 @@ class Jogador:
         if batalha.vencedor==self:
             self.__vitorias+=1
 
-    def remove_batalha(self, batalha: Batalha):
+    def remove_batalha(self, batalha):
         self.__batalhas.remove(batalha)
         if batalha.vencedor==self:
             self.__vitorias-=1

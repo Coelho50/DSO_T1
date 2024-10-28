@@ -2,6 +2,7 @@ from telas.TelaInicial import TelaInicial
 from controladores.ControladorPersonagem import ControladorPersonagem
 from controladores.ControladorParty import ControladorParty
 #from controladores.ControladorBatalhas import Controlador 				-> ainda nao implementado
+from excecoes.JogadorNotFoundException import JogadorNotFoundException
 
 class ControladorPrincipal:
 
@@ -12,8 +13,9 @@ class ControladorPrincipal:
 		#self__controlador_batalhas = controlador_batalha 				-> ainda nao implementado
 		self.__tela_inicial = TelaInicial(self)
 
-#	def editar_batalhas(self): 											-> ainda nao implementado
-#		self.__controlador_batalhas
+	def editar_batalhas(self):
+		pass
+#		self.__controlador_batalhas 									-> ainda nao implementado
 
 	def editar_parties(self):
 		self.__controlador_party
@@ -23,16 +25,21 @@ class ControladorPrincipal:
 
 	def remover_jogador(self):
 		self.lista_jogadores_cadastrados()
-		print("Quem você deseja remover?")
-		jogador_remover = self.__tela_inicial.seleciona_amigo_para_exlcuir
-
+		nome_jogador = self.__tela_inicial.seleciona_jogador
+		try:
+			jogador_excluir = seleciona_jogador
+		except JogadorNotFoundException:
+			print(f'Jogador "{nome_jogador}" não encontrado')
+		else:
+			self.__jogadores_cadastrados.remove(jogador_excluir)
+			print(f'Jogador "{nome_jogador}" excluido')
 
 	def encerrar_sessao(self):
 		exit()
 
 	def abrir_sistema(self):
 		lista_opcoes = {1: self.editar_batalhas, 2: self.editar_parties, 3: self.editar_personagens, 
-						4: self.editar_jogador, 5: self.encerrar_sessao}
+						4: self.remover_jogador, 5: self.encerrar_sessao}
 
 		while True:
 			opcao_selecionada = self.__tela_inicial.mostra_menu()
@@ -43,3 +50,9 @@ class ControladorPrincipal:
 		print("Jogadores cadastrados:")
 		for i in self.__jogadores_cadastrados:
 			print(f'[{i.nome}]')
+
+	def seleciona_jogador_por_nome(self, nome):
+		for jogador in self.__jogadores_cadastrados:
+			if jogador.nome == nome:
+				return jogador
+		raise JogadorNotFoundException

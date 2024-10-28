@@ -1,4 +1,4 @@
-from Personagem import Personagem
+from entidades.Personagem import Personagem
 from excecoes.GrupoCheioException import GrupoCheioException
 from excecoes.PersonagemNotFoundException import PersonagemNotFoundException
 class Party:

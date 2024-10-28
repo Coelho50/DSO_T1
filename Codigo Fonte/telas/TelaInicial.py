@@ -20,7 +20,6 @@ class TelaInicial(AbstractTela):
 	def le_opcao(self):
 		pass
 
-	def seleciona_jogador_para_excluir(self):
-		print("Quem você deseja remover?")
-		nome = input(":")
+	def seleciona_jogador(self):
+		nome = input("Nome do jogador a ser modificado:")
 		return nome
