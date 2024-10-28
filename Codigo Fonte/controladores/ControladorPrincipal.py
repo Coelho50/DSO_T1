@@ -38,11 +38,15 @@ class ControladorPrincipal:
 		exit()
 
 	def abrir_sistema(self):
+		verify = False
+		while not verify:
+			usuario = self.__tela_inicial.get_login()
+			verify = self.verificar_login(usuario)
 		lista_opcoes = {1: self.editar_batalhas, 2: self.editar_parties, 3: self.editar_personagens, 
 						4: self.remover_jogador, 5: self.encerrar_sessao}
 
 		while True:
-			opcao_selecionada = self.__tela_inicial.mostra_menu()
+			opcao_selecionada = self.__tela_inicial.mostra_menu(lista_opcoes)
 			controlador_chamado = lista_opcoes[opcao_selecionada]
 			controlador_chamado()
 
@@ -56,3 +60,7 @@ class ControladorPrincipal:
 			if jogador.nome == nome:
 				return jogador
 		raise JogadorNotFoundException
+
+	def verificar_login(self, usuario):
+		for jogador in self.__jogadores_cadastrados:
+			if jogador.nome == 
