@@ -5,9 +5,6 @@ class TelaInicial(AbstractTela):
 	def __init__(self, controlador_principal):
 		self.__controlador_principal = controlador_principal
 
-	def get_login(self):
-		return = input("Login (digite 0 para cadastrar um novo jogador): ")
-
 	def mostra_menu(self, lista_opcoes):
 		print("------- MENU PRINCIPAL -------")
 		print("1 - Batalhas")
@@ -34,6 +31,18 @@ class TelaInicial(AbstractTela):
 			else:
 				return opcao
 
-	def seleciona_jogador(self):
-		nome = input("Nome do jogador a ser modificado:")
+	def pegar_dados_jogador(self, msg: str):
+		nome = input(msg)
 		return nome
+
+#	def seleciona_jogador(self):
+#		nome = input("Nome do jogador a ser modificado:")
+#		return nome
+#
+#	def pegar_dados_novo_login(self):
+#		nome_jogador = input("Insira seu novo login: ")
+#		return nome_jogador
+#
+#	def get_login(self):
+#		nome_usuario = input("Login (digite 0 para cadastrar um novo jogador): ")
+#		return nome_usuario

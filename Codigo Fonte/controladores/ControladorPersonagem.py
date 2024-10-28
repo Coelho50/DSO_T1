@@ -116,3 +116,5 @@ class ControladorPersonagem:
 				print(f'Ainda não há personagens da classe {classe} na lista')
 		else:
 			print("Classe inválida")
+
+	def abrir_menu(self)
