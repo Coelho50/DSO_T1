@@ -38,8 +38,6 @@ class Jogador:
     @parties.setter
     def parties(self, parties: list):
         self.__parties.append(party)
-        if party.vencedor==self:
-            self.__vitorias+=1
 
     def remove_party(self, party: Party):
         self.__parties.remove(party)

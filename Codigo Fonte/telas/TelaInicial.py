@@ -12,10 +12,15 @@ class TelaInicial(AbstractTela):
 		print("1 - Batalhas")
 		print("2 - Parties")
 		print("3 - Personagens")
-		print("4 - Jogadores cadastrados")
+		print("4 - Remover jogador cadastrado")
 		print("5 - Encerrar sessão")
 		opcao = input("O que você deseja consultar?")
 		return opcao
 
 	def le_opcao(self):
 		pass
+
+	def seleciona_jogador_para_excluir(self):
+		print("Quem você deseja remover?")
+		nome = input(":")
+		return nome

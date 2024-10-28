@@ -6,6 +6,7 @@ from controladores.ControladorParty import ControladorParty
 class ControladorPrincipal:
 
 	def __init__(self):
+		self.__jogadores_cadastrados = []
 		self.__controlador_personagem = ControladorPersonagem(self)
 		self.__controlador_party = ControladorParty(self)
 		#self__controlador_batalhas = controlador_batalha 				-> ainda nao implementado
@@ -20,12 +21,25 @@ class ControladorPrincipal:
 	def editar_personagens(self):
 		self.__controlador_personagem
 
-	
+	def remover_jogador(self):
+		self.lista_jogadores_cadastrados()
+		print("Quem você deseja remover?")
+		jogador_remover = self.__tela_inicial.seleciona_amigo_para_exlcuir
+
+
+	def encerrar_sessao(self):
+		exit()
+
 	def abrir_sistema(self):
 		lista_opcoes = {1: self.editar_batalhas, 2: self.editar_parties, 3: self.editar_personagens, 
-						4: self.editar_jogadores, 5: self.encerrar_sessao}
+						4: self.editar_jogador, 5: self.encerrar_sessao}
 
 		while True:
 			opcao_selecionada = self.__tela_inicial.mostra_menu()
 			controlador_chamado = lista_opcoes[opcao_selecionada]
 			controlador_chamado()
+
+	def lista_jogadores_cadastrados(self):
+		print("Jogadores cadastrados:")
+		for i in self.__jogadores_cadastrados:
+			print(f'[{i.nome}]')
