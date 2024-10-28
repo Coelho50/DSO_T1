@@ -1,4 +1,6 @@
 from Personagem import Personagem
+from excecoes.GrupoCheioException import GrupoCheioException
+from excecoes.PersonagemNotFoundException import PersonagemNotFoundException
 class Party:
     def __init__(self, nome: str, char1: Personagem, char2: Personagem, char3: Personagem, char4):
         self.__nome=nome
@@ -16,21 +18,26 @@ class Party:
         return self.__personagens
     @personagens.setter
     def personagens(self, personagens: list):
-        self.__personagens=personagens
+        if len(personagens) <= 4:
+            for i in range(4):
+                if isinstance(personagens[i], Personagem):
+                    self.__personagens = personagens
+                else:
+                    raise ValueError
+        else:
+            raise GrupoCheioException
 
     def add_personagem(self,personagem: Personagem):
-        if len(self.__personagens)<=4 and personagem not in self.__personagens:
+        if len(self.__personagens) <=4 and personagem not in self.__personagens:
             self.__personagens.append(personagem)
         else:
-            pass 
-        """raise exception"""
+            raise GrupoCheioException
 
-    def remove_personagem(self,personagem: Personagem):
+    def remove_personagem(self, personagem: Personagem):
         if personagem in self.__personagens:
             self.__personagens.remove(personagem)
         else:
-            pass
-            """raise exception"""
+            raise PersonagemNotFoundException
 
             
 
