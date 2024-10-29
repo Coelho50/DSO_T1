@@ -1,10 +1,11 @@
 from entidades.Personagem import Personagem
 
 class Mago(Personagem):
-    def __init__(self, nome: str, hp: float, item: str, dps: float, mana: float):
+    def __init__(self, nome: str, hp: float, item: str, dps: float, mana: float, hps: float):
         super().__init__(nome, hp, item)
         self.__dps = None
         self.__mana = None
+        self.__hps = None
         if isinstance(dps, float):
             self.__dps = dps
         else:
@@ -13,6 +14,10 @@ class Mago(Personagem):
             self.__mana = mana
         else:
             raise ValueError("mana")
+        if isinstance(hps, float):
+            self.__hps = hps
+        else:
+            raise ValueError("HPS")
 
     @property
     def dps(self) -> float:
@@ -35,3 +40,14 @@ class Mago(Personagem):
             self.__mana = mana
         else:
             raise ValueError("mana")
+
+    @property
+    def hps(self) -> float:
+        return self.__hps
+
+    @hps.setter
+    def hps(self, hps: float):
+        if isinstance(hps, float):
+            self.__hps = hps
+        else:
+            raise ValueError("HPS")

@@ -20,23 +20,33 @@ class ControladorPrincipal:
 #		self.__controlador_batalhas 									-> ainda nao implementado
 
 	def editar_parties(self):
-		self.__controlador_party
+		self.__controlador_party.abrir_menu()
 
 	def editar_personagens(self):
 		self.__controlador_personagem.abrir_menu()
 
 	def remover_jogador(self):
 		self.lista_jogadores_cadastrados()
-		nome_jogador = self.__tela_inicial.pegar_dados_jogador("Nome do jogador a ser modificado:")
-		try:
-			jogador_excluir = seleciona_jogador_por_nome(nome_jogador)
-		except JogadorNotFoundException as e:
-			print('e')
-		else:
-			self.__jogadores_cadastrados.remove(jogador_excluir)
-			print(f'Jogador "{nome_jogador}" excluido')
+		while True:
+			try:
+				nome_jogador = self.__tela_inicial.pegar_dados_jogador("Nome do jogador a ser modificado(digite 0 para retornar):")
+				if nome_jogador == '0':
+					return None
+				if nome_jogador == self.__jogador_logado.nome:
+					raise Exception
+				jogador_excluir = self.seleciona_jogador_por_nome(nome_jogador)
+			except JogadorNotFoundException as e:
+				print(e)
+			except Exception:
+				print("Excluindo o cadastro e encerrando sessão...")
+				self.__jogadores_cadastrados.remove(self.__jogador_logado)
+				self.encerrar_sessao()
+			else:
+				self.__jogadores_cadastrados.remove(jogador_excluir)
+				print(f'Jogador "{nome_jogador}" excluido')
 
 	def encerrar_sessao(self):
+		print("Sessão encerrada.")
 		exit()
 
 	def abrir_sistema(self):
@@ -45,8 +55,7 @@ class ControladorPrincipal:
 						4: self.remover_jogador, 5: self.encerrar_sessao}
 		while True:
 			opcao_selecionada = self.__tela_inicial.mostra_menu(lista_opcoes)
-			controlador_chamado = lista_opcoes[opcao_selecionada]
-			controlador_chamado()
+			lista_opcoes[opcao_selecionada]()
 
 	def add_jogador(self, nome: str):
 		while True:
