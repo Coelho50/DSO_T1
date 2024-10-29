@@ -40,18 +40,3 @@ class TelaPersonagem(AbstractTela):
 				print(f'Dado passado deve ser do tipo {tipo}')
 			else:
 				return dado
-
-#	def ler_ate_opcao_valida(self, numero_opcoes):
-#		while True:
-#			try:
-#				opcao = int(input("Escolha uma opção: "))
-#				self.asseguro_opcao_valida(opcao, numero_opcoes)
-#				return opcao
-#			except ValueError:
-#				print("Ocorreu um erro, selecione a opção com um número inteiro")
-#			except OpcaoInvalidaException:
-#				print("Opcao fora do intervalo")
-#
-#	def asseguro_opcao_valida(self, opcao, numero_opcoes):
-#		if not (opcao >= 1 and opcao <= numero_opcoes):
-#			raise OpcaoInvalidaException
