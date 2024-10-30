@@ -2,7 +2,7 @@ from telas.TelaInicial import TelaInicial
 from entidades.Jogador import Jogador
 from controladores.ControladorPersonagem import ControladorPersonagem
 from controladores.ControladorParty import ControladorParty
-#from controladores.ControladorBatalhas import Controlador 				-> ainda nao implementado
+from controladores.ControladorBatalha import ControladorBatalha
 from excecoes.JogadorNotFoundException import JogadorNotFoundException
 
 class ControladorPrincipal:
@@ -11,13 +11,12 @@ class ControladorPrincipal:
 		self.__jogadores_cadastrados = []
 		self.__controlador_personagem = ControladorPersonagem(self)
 		self.__controlador_party = ControladorParty(self)
-		#self__controlador_batalhas = controlador_batalha 				-> ainda nao implementado
+		self.__controlador_batalhas = ControladorBatalha(self)
 		self.__tela_inicial = TelaInicial(self)
 		self.__jogador_logado = None
 
 	def editar_batalhas(self):
-		pass
-#		self.__controlador_batalhas 									-> ainda nao implementado
+		self.__controlador_batalhas.abrir_menu()
 
 	def editar_parties(self):
 		self.__controlador_party.abrir_menu()
