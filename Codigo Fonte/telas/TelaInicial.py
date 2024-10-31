@@ -10,7 +10,7 @@ class TelaInicial(AbstractTela):
 		print("1 - Batalhas")
 		print("2 - Parties")
 		print("3 - Personagens")
-		print("4 - Remover jogador cadastrado")
+		print("4 - Editar/listar jogadores cadastrados")
 		print("5 - Encerrar sessão")
 		opcao = self.le_opcao(lista_opcoes)
 		return opcao
