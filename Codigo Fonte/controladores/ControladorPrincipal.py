@@ -19,7 +19,7 @@ class ControladorPrincipal:
 		self.__controlador_batalhas.abrir_menu()
 
 	def editar_parties(self):
-		print("Gostaria de editar as parties de qual jogador?")
+		self.__tela_inicial.mostra_mensagem("Gostaria de editar as parties de qual jogador?")
 		self.lista_jogadores_cadastrados()
 		while True:
 			try:
@@ -30,7 +30,7 @@ class ControladorPrincipal:
 				self.__controlador_party.abrir_menu()
 				break
 			except JogadorNotFoundException as e:
-				print(e)
+				self.__tela_inicial.mostra_mensagem(e)
 		
 		
 
@@ -48,17 +48,17 @@ class ControladorPrincipal:
 					raise Exception
 				jogador_excluir = self.seleciona_jogador_por_nome(nome_jogador)
 			except JogadorNotFoundException as e:
-				print(e)
+				self.__tela_inicial.mostra_mensagem(e)
 			except Exception:
-				print("Excluindo o cadastro e encerrando sessão...")
+				self.__tela_inicial.mostra_mensagem("Excluindo o cadastro e encerrando sessão...")
 				self.__jogadores_cadastrados.remove(self.__jogador_logado)
 				self.encerrar_sessao()
 			else:
 				self.__jogadores_cadastrados.remove(jogador_excluir)
-				print(f'Jogador "{nome_jogador}" excluido')
+				self.__tela_inicial.mostra_mensagem(f'Jogador "{nome_jogador}" excluido')
 
 	def encerrar_sessao(self):
-		print("Sessão encerrada.")
+		self.__tela_inicial.mostra_mensagem("Sessão encerrada.")
 		exit()
 
 	def abrir_sistema(self):
@@ -75,16 +75,16 @@ class ControladorPrincipal:
 				self.seleciona_jogador_por_nome(nome)
 			except JogadorNotFoundException:
 				self.__jogadores_cadastrados.append(Jogador(nome))
-				print(f'{nome} cadastrado')
+				self.__tela_inicial.mostra_mensagem(f'{nome} cadastrado')
 				return None
 			else:
-				print("Jogador já cadastrado")
+				self.__tela_inicial.mostra_mensagem("Jogador já cadastrado")
 				return None
 
 	def lista_jogadores_cadastrados(self):
-		print("Jogadores cadastrados:")
+		self.__tela_inicial.mostra_mensagem("Jogadores cadastrados:")
 		for i in self.__jogadores_cadastrados:
-			print(f'[{i.nome}]')
+			self.__tela_inicial.mostra_mensagem(f'[{i.nome}]')
 
 	def seleciona_jogador_por_nome(self, nome):
 		for jogador in self.__jogadores_cadastrados:
@@ -100,10 +100,10 @@ class ControladorPrincipal:
 					raise Exception
 				jogador = self.seleciona_jogador_por_nome(nome_usuario)
 			except JogadorNotFoundException as e:
-				print(e)
+				self.__tela_inicial.mostra_mensagem(e)
 			except Exception:
 				self.add_jogador(self.__tela_inicial.pegar_dados_jogador("Digite o nome do novo jogador: "))
 			else:
-				print(f'Bem vindo, {jogador.nome}')
-				print()
+				self.__tela_inicial.mostra_mensagem(f'Bem vindo, {jogador.nome}')
+				self.__tela_inicial.mostra_mensagem("")
 				return jogador

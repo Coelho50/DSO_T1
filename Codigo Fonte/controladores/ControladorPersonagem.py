@@ -12,8 +12,8 @@ class ControladorPersonagem:
 		self.__controlador_principal = controlador_principal
 
 	def cria_personagem(self):
-		print("--------- CRIAÇÃO DE PERSONAGEM ---------")
-		print("Insira abaixo os dados requisitados para criar um novo personagem")
+		self.__tela_personagem.mostra_mensagem("--------- CRIAÇÃO DE PERSONAGEM ---------")
+		self.__tela_personagem.mostra_mensagem("Insira abaixo os dados requisitados para criar um novo personagem")
 		classe = self.pegar_classe()
 		nome = self.pegar_nome()
 		hp = self.__tela_personagem.pegar_dados("HP: ", float)
@@ -27,43 +27,43 @@ class ControladorPersonagem:
 			self.__personagens_cadastrados.append(Mago(nome, hp, item, dps, mana, hps))
 		elif classe == "Guerreiro":
 			self.__personagens_cadastrados.append(Guerreiro(nome, hp, item, dps, mana, hps))
-		print(f'{nome} adicionado a lista de personagens')
+		self.__tela_personagem.mostra_mensagem(f'{nome} adicionado a lista de personagens')
 
 	def remove_personagem(self):
-		print("--------- REMOVER PERSONAGEM ---------")
+		self.__tela_personagem.mostra_mensagem("--------- REMOVER PERSONAGEM ---------")
 		self.lista_nomes_personagens()
-		print("Quem você deseja remover?")
+		self.__tela_personagem.mostra_mensagem("Quem você deseja remover?")
 		nome = self.__tela_personagem.pegar_dados(":", str)
 		try:
 			self.verif_nome_repetido(nome)
 		except PersonagemJaAddException:
 			self.__personagens_cadastrados.remove(self.pegar_personagem_por_nome(nome))
-			print(f'{nome} removido')
+			self.__tela_personagem.mostra_mensagem(f'{nome} removido')
 		else:
-			print("Personagem ainda não adicionado a lista")
+			self.__tela_personagem.mostra_mensagem("Personagem ainda não adicionado a lista")
 
 	def lista_personagens(self):
 		vazio = True
-		print("Quais classes você deseja listar? (Todas, Mago, Guerreiro, Healer)")
+		self.__tela_personagem.mostra_mensagem("Quais classes você deseja listar? (Todas, Mago, Guerreiro, Healer)")
 		classe = self.__tela_personagem.pegar_dados(":", str)
 		if len(self.__personagens_cadastrados) == 0:
-			print("Ainda não foram adicionados personagens")
+			self.__tela_personagem.mostra_mensagem("Ainda não foram adicionados personagens")
 		elif classe == 'Todas':
 			for char in self.__personagens_cadastrados:
-				print(f'{char.nome}: {char.hp} HP, {char.dps} DPS, {char.mana} Mana, {char.hps} HPS, item: {char.item}')
+				self.__tela_personagem.mostra_mensagem(f'{char.nome}: {char.hp} HP, {char.dps} DPS, {char.mana} Mana, {char.hps} HPS, item: {char.item}')
 		elif classe == 'Guerreiro' or classe == 'Mago' or classe == 'Healer':
 			for char in self.__personagens_cadastrados:
 				if char.classe == classe:
-					print(f'{char.nome}: {char.hp} HP, {char.dps} DPS, {char.mana} Mana, {char.hps} HPS, item: {char.item}')
+					self.__tela_personagem.mostra_mensagem(f'{char.nome}: {char.hp} HP, {char.dps} DPS, {char.mana} Mana, {char.hps} HPS, item: {char.item}')
 					vazio = False
 			if vazio:
-				print(f'Ainda não há personagens da classe {classe} na lista')
+				self.__tela_personagem.mostra_mensagem(f'Ainda não há personagens da classe {classe} na lista')
 		else:
-			print("Classe inválida")
+			self.__tela_personagem.mostra_mensagem("Classe inválida")
 
 	def lista_nomes_personagens(self):
 		for char in self.__personagens_cadastrados:
-			print(char.nome)
+			self.__tela_personagem.mostra_mensagem(char.nome)
 
 	def abrir_menu(self):
 		lista_opcoes = {1: self.cria_personagem, 2: self.remove_personagem, 3: self.lista_personagens}
@@ -89,7 +89,7 @@ class ControladorPersonagem:
 			classe = self.__tela_personagem.pegar_dados("Classe: ", str)
 			if (classe == "Mago" or classe == "Healer" or classe == "Guerreiro"):
 				return classe
-			print("Classe inválida. Um personagem deve ser Mago, Guerreiro ou Healer")
+			self.__tela_personagem.mostra_mensagem("Classe inválida. Um personagem deve ser Mago, Guerreiro ou Healer")
 
 	def pegar_nome(self):
 		while True:
@@ -97,6 +97,6 @@ class ControladorPersonagem:
 			try:
 				self.verif_nome_repetido(nome)
 			except PersonagemJaAddException as e:
-				print(e)
+				self.__tela_personagem.mostra_mensagem(e)
 			else:
 				return nome
