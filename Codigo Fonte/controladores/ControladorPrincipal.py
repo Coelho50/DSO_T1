@@ -10,7 +10,7 @@ class ControladorPrincipal:
 	def __init__(self):
 		self.__jogadores_cadastrados = []
 		self.__controlador_personagem = ControladorPersonagem(self)
-		self.__controlador_party = ControladorParty(self)
+		self.__controlador_party = ControladorParty(self,self.__controlador_personagem.lista_personagens)
 		self.__controlador_batalhas = ControladorBatalha(self)
 		self.__tela_inicial = TelaInicial(self)
 		self.__jogador_logado = None
@@ -19,7 +19,20 @@ class ControladorPrincipal:
 		self.__controlador_batalhas.abrir_menu()
 
 	def editar_parties(self):
-		self.__controlador_party.abrir_menu()
+		print("Gostaria de editar as parties de qual jogador?")
+		self.lista_jogadores_cadastrados()
+		while True:
+			try:
+				nome_jogador = self.__tela_inicial.pegar_dados_jogador("Nome do jogador(digite 0 para retornar):")
+				if nome_jogador == "0":
+					return None
+				self.__controlador_party.jogador = self.seleciona_jogador_por_nome(nome_jogador)
+				self.__controlador_party.abrir_menu()
+				break
+			except JogadorNotFoundException as e:
+				print(e)
+		
+		
 
 	def editar_personagens(self):
 		self.__controlador_personagem.abrir_menu()

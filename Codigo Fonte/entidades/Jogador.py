@@ -15,11 +15,6 @@ class Jogador:
     def batalhas(self) -> list:
         return self.__batalhas
 
-    @batalhas.setter
-    def batalhas(self, batalhas: list):
-        self.__batalhas.append(batalha)
-        if batalha.vencedor==self:
-            self.__vitorias+=1
 
     def remove_batalha(self, batalha):
         self.__batalhas.remove(batalha)
@@ -33,9 +28,8 @@ class Jogador:
     @property
     def parties(self) -> list:
         return self.__parties
-
-    @parties.setter
-    def parties(self, parties: list):
+    
+    def add_party(self, party: Party):
         self.__parties.append(party)
 
     def remove_party(self, party: Party):

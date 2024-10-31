@@ -85,18 +85,18 @@ class ControladorPersonagem:
 			raise PersonagemJaAddException
  	
 	def pegar_classe(self):
- 		while True:
- 			classe = self.__tela_personagem.pegar_dados("Classe: ", str)
- 			if (classe == "Mago" or classe == "Healer" or classe == "Guerreiro"):
- 				return classe
- 			print("Classe inválida. Um personagem deve ser Mago, Guerreiro ou Healer")
+		while True:
+			classe = self.__tela_personagem.pegar_dados("Classe: ", str)
+			if (classe == "Mago" or classe == "Healer" or classe == "Guerreiro"):
+				return classe
+			print("Classe inválida. Um personagem deve ser Mago, Guerreiro ou Healer")
 
 	def pegar_nome(self):
- 		while True:
- 			nome = self.__tela_personagem.pegar_dados("Nome: ", str)
- 			try:
- 				self.verif_nome_repetido(nome)
- 			except PersonagemJaAddException as e:
- 				print(e)
- 			else:
- 				return nome
+		while True:
+			nome = self.__tela_personagem.pegar_dados("Nome: ", str)
+			try:
+				self.verif_nome_repetido(nome)
+			except PersonagemJaAddException as e:
+				print(e)
+			else:
+				return nome
