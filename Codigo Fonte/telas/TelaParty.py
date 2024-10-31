@@ -40,6 +40,3 @@ class TelaParty(AbstractTela):
 				print(f'Dado passado deve ser do tipo {tipo}')
 			else:
 				return dado
-	def mostra_mensagem(self,msg):
-		print(msg)
-	

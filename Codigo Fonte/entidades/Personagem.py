@@ -1,5 +1,6 @@
 class Personagem:
 	def __init__(self, nome: str, hp: float, item: str):
+		self.__usos = 0
 		self.__nome = None
 		self.__hp = None
 		self.__item = None
@@ -28,6 +29,18 @@ class Personagem:
 			self.__nome = nome
 		else:
 			raise ValueError("nome")
+
+	@property
+	def usos(self) -> int:
+		return self.__usos
+
+	@usos.setter
+	def usos(self, usos: int):
+		self.__usos = None
+		if isinstance(usos, int):
+			self.__usos = usos
+		else:
+			raise ValueError("usos")
 
 	@property
 	def hp(self) -> float:

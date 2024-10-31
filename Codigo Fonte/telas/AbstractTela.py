@@ -12,3 +12,7 @@ class AbstractTela(ABC):
 	@abstractmethod
 	def le_opcao():
 		pass
+
+	def mostra_mensagem(self,msg):
+		print(msg)
+	
