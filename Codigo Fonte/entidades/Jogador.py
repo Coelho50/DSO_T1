@@ -34,5 +34,3 @@ class Jogador:
 
     def remove_party(self, party: Party):
         self.__parties.remove(party)
-        if party.vencedor==self:
-            self.__vitorias-=1

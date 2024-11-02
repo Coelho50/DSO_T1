@@ -9,33 +9,26 @@ class ControladorPrincipal:
 
 	def __init__(self):
 		self.__jogadores_cadastrados = []
+		self.__jogador_logado = None
 		self.__controlador_personagem = ControladorPersonagem(self)
-		self.__controlador_party = ControladorParty(self,self.__controlador_personagem.lista_personagens)
+		self.__controlador_party = ControladorParty(self)
 		self.__controlador_batalhas = ControladorBatalha(self)
 		self.__tela_inicial = TelaInicial(self)
-		self.__jogador_logado = None
+
+	@property
+	def jogador_logado(self):
+		return self.__jogador_logado
+
 
 	def editar_batalhas(self):
 		self.__controlador_batalhas.abrir_menu()
 
 	def editar_parties(self):
-		self.__tela_inicial.mostra_mensagem("Gostaria de editar as parties de qual jogador?")
-		self.lista_jogadores_cadastrados()
-		while True:
-			try:
-				nome_jogador = self.__tela_inicial.pegar_dados_jogador("Nome do jogador(digite 0 para retornar):")
-				if nome_jogador == "0":
-					return None
-				self.__controlador_party.jogador = self.seleciona_jogador_por_nome(nome_jogador)
-				self.__controlador_party.abrir_menu()
-				break
-			except JogadorNotFoundException as e:
-				self.__tela_inicial.mostra_mensagem(e)
-		
-		
+		self.__controlador_party.abrir_menu()
 
 	def editar_personagens(self):
 		self.__controlador_personagem.abrir_menu()
+
 
 	def remover_jogador(self):
 		self.lista_jogadores_cadastrados()
@@ -86,6 +79,9 @@ class ControladorPrincipal:
 		for i in self.__jogadores_cadastrados:
 			self.__tela_inicial.mostra_mensagem(f'[{i.nome}]')
 
+	def lista_personagens_cadastrados(self):
+		return self.__controlador_personagem.personagens_cadastrados
+
 	def seleciona_jogador_por_nome(self, nome):
 		for jogador in self.__jogadores_cadastrados:
 			if jogador.nome == nome:
@@ -106,4 +102,5 @@ class ControladorPrincipal:
 			else:
 				self.__tela_inicial.mostra_mensagem(f'Bem vindo, {jogador.nome}')
 				self.__tela_inicial.mostra_mensagem("")
+				self.__jogador_logado = jogador
 				return jogador

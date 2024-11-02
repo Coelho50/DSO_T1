@@ -9,7 +9,11 @@ class ControladorPersonagem:
 	def __init__(self, controlador_principal):
 		self.__tela_personagem = TelaPersonagem(self)
 		self.__personagens_cadastrados = []
-		self.__controlador_principal = controlador_principal
+
+	@property
+	def personagens_cadastrados(self):
+		return self.__personagens_cadastrados
+
 
 	def cria_personagem(self):
 		self.__tela_personagem.mostra_mensagem("--------- CRIAÇÃO DE PERSONAGEM ---------")

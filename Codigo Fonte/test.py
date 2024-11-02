@@ -1,10 +1,4 @@
-from controladores.ControladorPrincipal import ControladorPrincipal
-from controladores.ControladorPersonagem import ControladorPersonagem
-from entidades.Personagem import Personagem
-from entidades.Healer import Healer
-from entidades.Mago import Mago
-from entidades.Guerreiro import Guerreiro
-from telas.TelaPersonagem import TelaPersonagem
+
 
 '''
 arquivo usado APENAS PARA TESTES, DEVE SER EXCLUIDO ANTES DA VERSAO FINAL
@@ -13,6 +7,9 @@ arquivo usado APENAS PARA TESTES, DEVE SER EXCLUIDO ANTES DA VERSAO FINAL
 
 #----------------- CONTROLADOR PRINCIPAL -----------------
 
+from controladores.ControladorPrincipal import ControladorPrincipal
+from entidades.Mago import Mago
+
 main_control = ControladorPrincipal()
 main_control.add_jogador("Coelhasso")
 main_control.add_jogador("A")
@@ -20,12 +17,8 @@ main_control.add_jogador("NoobMaster69")
 main_control.add_jogador("KillerXinok")
 main_control.add_jogador("SonicFox")
 main_control.add_jogador("Boa noite")
-main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Healer("ShadowHeart", 2.0, "Flail", 5.0, 15.0, 20.0))
-main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Healer("Wyll", 4.0, "Mace", 6.0, 6.0, 30.0))
-main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Mago("Gale", 2.0, "Cetro", 4.0, 30.0, 10.0))
-#main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Guerreiro("Karlach", 7.0, "Axe", 5.0, 90.0, 20.0))
-main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Healer("Lae'zel", 60.0, "Sword", 90.0, 23.0, 2.0))
 main_control.abrir_sistema()
+
 
 #----------------- CONTROLADOR DE PERSONAGEM -----------------
 
