@@ -11,6 +11,7 @@ from controladores.ControladorPrincipal import ControladorPrincipal
 from entidades.Healer import Healer
 from entidades.Mago import Mago
 from entidades.Party import Party
+from entidades.Guerreiro import Guerreiro
 
 main_control = ControladorPrincipal()
 main_control.add_jogador("Coelhasso")
@@ -19,6 +20,14 @@ main_control.add_jogador("NoobMaster69")
 main_control.add_jogador("KillerXinok")
 main_control.add_jogador("SonicFox")
 main_control.add_jogador("Boa noite")
+
+main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Healer("Laezel", 20.0, "axe", 30.2, 40.4, 50.5))
+main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Healer("ShadowHeart", 20.0, "axe", 30.2, 40.4, 50.5))
+main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Guerreiro("Tracer", 20.0, "axe", 30.2, 40.4, 50.5))
+main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Mago("Reinhardt", 20.0, "axe", 30.2, 40.4, 50.5))
+main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Guerreiro("Smoke", 20.0, "axe", 30.2, 40.4, 50.5))
+main_control._ControladorPrincipal__controlador_personagem._ControladorPersonagem__personagens_cadastrados.append(Mago("Cyrax", 20.0, "axe", 30.2, 40.4, 50.5))
+
 joao = Healer("joao",1.0,"",1.0,1.0,1.0)
 matheus = Healer("joao",1.0,"",1.0,1.0,1.0)
 marcos = Healer("joao",1.0,"",1.0,1.0,1.0)

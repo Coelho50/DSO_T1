@@ -29,7 +29,6 @@ class ControladorBatalha():
 			return None
 		b = Batalha(self.__jogador1, jogador2, party1, party2, vencedor)
 		self.__jogador1.add_batalha(b)
-		print(self.__jogador1.batalhas)
 		jogador2.add_batalha(b)
 		
 		self.__tela_batalha.mostra_mensagem("batalha criada!")

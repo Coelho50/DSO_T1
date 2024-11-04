@@ -18,6 +18,7 @@ class ControladorPrincipal:
 	@property
 	def jogador_logado(self):
 		return self.__jogador_logado
+
 	@property
 	def jogadores_cadastrados(self):
 		return self.__jogadores_cadastrados
@@ -30,7 +31,6 @@ class ControladorPrincipal:
 
 	def editar_personagens(self):
 		self.__controlador_personagem.abrir_menu()
-
 
 	def remover_jogador(self):
 		self.lista_jogadores_cadastrados()
@@ -55,14 +55,6 @@ class ControladorPrincipal:
 	def encerrar_sessao(self):
 		self.__tela_inicial.mostra_mensagem("Sessão encerrada.")
 		exit()
-
-	def abrir_sistema(self):
-		self.__jogador_logado = self.login()
-		lista_opcoes = {1: self.editar_batalhas, 2: self.editar_parties, 3: self.editar_personagens, 
-						4: self.remover_jogador, 5: self.encerrar_sessao}
-		while True:
-			opcao_selecionada = self.__tela_inicial.mostra_menu(lista_opcoes)
-			lista_opcoes[opcao_selecionada]()
 
 	def add_jogador(self, nome: str):
 		while True:
@@ -106,3 +98,15 @@ class ControladorPrincipal:
 				self.__tela_inicial.mostra_mensagem("")
 				self.__jogador_logado = jogador
 				return jogador
+
+	def abrir_sistema(self):
+		while True:
+			self.__jogador_logado = self.login()
+			lista_opcoes = {1: self.editar_batalhas, 2: self.editar_parties, 3: self.editar_personagens, 
+							4: self.remover_jogador, 5: self.encerrar_sessao}
+			while self.__jogador_logado != None:
+				opcao_selecionada = self.__tela_inicial.mostra_menu(lista_opcoes)
+				if opcao_selecionada == 6: #--------------> perguntar pro professor uma maneira melhor
+					self.__jogador_logado = None
+				else:
+					lista_opcoes[opcao_selecionada]()

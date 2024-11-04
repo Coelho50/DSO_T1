@@ -11,7 +11,8 @@ class TelaInicial(AbstractTela):
 		print("2 - Parties")
 		print("3 - Personagens")
 		print("4 - Editar/listar jogadores cadastrados")
-		print("5 - Encerrar sessão")
+		print("5 - Fechar aplicação")
+		print("6 - Logout")
 		opcao = self.le_opcao(lista_opcoes)
 		return opcao
 
@@ -20,7 +21,7 @@ class TelaInicial(AbstractTela):
 			print("O que você deseja consultar?")
 			try:
 				opcao = int(input(':'))
-				if opcao not in lista_opcoes:
+				if opcao not in lista_opcoes and opcao != 6:
 					raise OpcaoInvalidaException
 			except ValueError:
 				print("Opção inválida")
@@ -34,15 +35,3 @@ class TelaInicial(AbstractTela):
 	def pegar_dados_jogador(self, msg: str):
 		nome = input(msg)
 		return nome
-
-#	def seleciona_jogador(self):
-#		nome = input("Nome do jogador a ser modificado:")
-#		return nome
-#
-#	def pegar_dados_novo_login(self):
-#		nome_jogador = input("Insira seu novo login: ")
-#		return nome_jogador
-#
-#	def get_login(self):
-#		nome_usuario = input("Login (digite 0 para cadastrar um novo jogador): ")
-#		return nome_usuario
