@@ -7,10 +7,11 @@ class Batalha:
         self.__party_1=party_1
         self.__party_2=party_2
         self.__vencedor=vencedor
-
+        
     @property
     def jogador_1(self) -> Jogador:
         return self.__jogador_1
+    
     @jogador_1.setter
     def jogador_1(self, jogador_1: Jogador):
         self.__jogador_1=jogador_1
@@ -28,6 +29,7 @@ class Batalha:
     @party_1.setter
     def party_1(self, party_1: int):
         self.__party_1=party_1
+        
     @property
     def party_2(self) -> int:
         return self.__party_2

@@ -8,7 +8,9 @@ arquivo usado APENAS PARA TESTES, DEVE SER EXCLUIDO ANTES DA VERSAO FINAL
 #----------------- CONTROLADOR PRINCIPAL -----------------
 
 from controladores.ControladorPrincipal import ControladorPrincipal
+from entidades.Healer import Healer
 from entidades.Mago import Mago
+from entidades.Party import Party
 
 main_control = ControladorPrincipal()
 main_control.add_jogador("Coelhasso")
@@ -17,6 +19,12 @@ main_control.add_jogador("NoobMaster69")
 main_control.add_jogador("KillerXinok")
 main_control.add_jogador("SonicFox")
 main_control.add_jogador("Boa noite")
+joao = Healer("joao",1.0,"",1.0,1.0,1.0)
+matheus = Healer("joao",1.0,"",1.0,1.0,1.0)
+marcos = Healer("joao",1.0,"",1.0,1.0,1.0)
+lucas = Healer("joao",1.0,"",1.0,1.0,1.0)
+main_control.jogadores_cadastrados[1].add_party(Party("Curandeiros",joao,matheus,marcos,lucas))
+main_control.jogadores_cadastrados[0].add_party(Party("Magos de ataque",joao,matheus,marcos,lucas))
 main_control.abrir_sistema()
 
 

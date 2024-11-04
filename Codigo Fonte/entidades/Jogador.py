@@ -21,6 +21,11 @@ class Jogador:
         if batalha.vencedor==self:
             self.__vitorias-=1
 
+    def add_batalha(self, batalha):
+        if batalha.vencedor==self:
+            self.__vitorias+=1
+        self.__batalhas.append(batalha)
+
     @property
     def vitorias(self) -> int:
         return self.__vitorias

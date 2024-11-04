@@ -14,12 +14,14 @@ class ControladorPrincipal:
 		self.__controlador_party = ControladorParty(self)
 		self.__controlador_batalhas = ControladorBatalha(self)
 		self.__tela_inicial = TelaInicial(self)
-
+		
 	@property
 	def jogador_logado(self):
 		return self.__jogador_logado
-
-
+	@property
+	def jogadores_cadastrados(self):
+		return self.__jogadores_cadastrados
+	
 	def editar_batalhas(self):
 		self.__controlador_batalhas.abrir_menu()
 
