@@ -15,7 +15,6 @@ class Jogador:
     def batalhas(self) -> list:
         return self.__batalhas
 
-
     def remove_batalha(self, batalha):
         self.__batalhas.remove(batalha)
         if batalha.vencedor==self:
