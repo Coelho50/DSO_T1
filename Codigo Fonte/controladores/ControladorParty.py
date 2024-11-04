@@ -15,11 +15,14 @@ class ControladorParty():
 		self.__tela_party.mostra_mensagem("--------- CRIAÇÃO DE PARTY ---------")
 		self.__tela_party.mostra_mensagem("Como se chamará a sua party?")
 		nome_party = input(": ")
+		self.__tela_party.mostra_mensagem("--------- PERSONAGENS DISPONÍVEIS ---------")
+		for p in self._personagens_cadastrados:
+			self.__tela_party.mostra_mensagem(f"{p.nome}")
 		n_char = 0
 		personagens = []
 		while n_char != 4:
 				try:
-					print(f"Digite o nome do {n_char}° personagem da sua Party(Digite 0 para cancelar):")
+					print(f"Digite o nome do {n_char+1}° personagem da sua Party(Digite 0 para cancelar):")
 					nome = self.__tela_party.pegar_dados("Nome: ", str)
 					if nome == "0":
 						return None
@@ -41,7 +44,7 @@ class ControladorParty():
 				if nome == "0":
 					break
 				elif self.verificador(nome,self.__jogador.parties) != None:
-					self.__jogador.remove_party(nome)
+					self.__jogador.remove_party(self.verificador(nome,self.__jogador.parties))
 					self.__tela_party.mostra_mensagem(f"Party '{nome}' removida")
 					break
 				else:
