@@ -8,7 +8,7 @@ class TelaBatalha(AbstractTela):
 
 
 	def mostra_menu(self, lista_opcoes):
-		print("------- PARTIES -------")
+		print("------- BATALHAS -------")
 		print("1 - Criar nova batalha")
 		print("2 - Excluir batalha")
 		print("3 - Listar batalhas")
