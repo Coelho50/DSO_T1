@@ -34,6 +34,12 @@ marcos = Healer("joao",1.0,"",1.0,1.0,1.0)
 lucas = Healer("joao",1.0,"",1.0,1.0,1.0)
 main_control.jogadores_cadastrados[1].add_party(Party("Curandeiros",joao,matheus,marcos,lucas))
 main_control.jogadores_cadastrados[0].add_party(Party("Magos de ataque",joao,matheus,marcos,lucas))
+
+main_control._ControladorPrincipal__jogadores_cadastrados[0]._Jogador__vitorias = 32
+main_control._ControladorPrincipal__jogadores_cadastrados[1]._Jogador__vitorias = 63
+main_control._ControladorPrincipal__jogadores_cadastrados[2]._Jogador__vitorias = 54
+main_control._ControladorPrincipal__jogadores_cadastrados[3]._Jogador__vitorias = 12
+main_control._ControladorPrincipal__jogadores_cadastrados[4]._Jogador__vitorias = 60
 main_control.abrir_sistema()
 
 

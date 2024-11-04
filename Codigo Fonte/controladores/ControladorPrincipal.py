@@ -33,10 +33,10 @@ class ControladorPrincipal:
 		self.__controlador_personagem.abrir_menu()
 
 	def remover_jogador(self):
-		self.lista_jogadores_cadastrados()
+		self.lista_jogadores_por_vitoria()
 		while True:
 			try:
-				nome_jogador = self.__tela_inicial.pegar_dados_jogador("Nome do jogador a ser modificado(digite 0 para retornar):")
+				nome_jogador = self.__tela_inicial.pegar_dados_jogador("Digite o nome caso queira remover um jogador (0 para retornar ao menu principal): ")
 				if nome_jogador == '0':
 					return None
 				if nome_jogador == self.__jogador_logado.nome:
@@ -68,10 +68,11 @@ class ControladorPrincipal:
 				self.__tela_inicial.mostra_mensagem("Jogador já cadastrado")
 				return None
 
-	def lista_jogadores_cadastrados(self):
+	def lista_jogadores_por_vitoria(self):
 		self.__tela_inicial.mostra_mensagem("Jogadores cadastrados:")
-		for i in self.__jogadores_cadastrados:
-			self.__tela_inicial.mostra_mensagem(f'[{i.nome}]')
+		jogadores_ordenados = self.ordena_jogadores_vitoria(self.__jogadores_cadastrados.copy())
+		for i in jogadores_ordenados:
+			self.__tela_inicial.mostra_mensagem(f'[{i.nome}: {len(i.batalhas)} batalhas, {i.vitorias} vitórias]')
 
 	def lista_personagens_cadastrados(self):
 		return self.__controlador_personagem.personagens_cadastrados
@@ -81,6 +82,15 @@ class ControladorPrincipal:
 			if jogador.nome == nome:
 				return jogador
 		raise JogadorNotFoundException
+
+	def ordena_jogadores_vitoria(self, lista_ordenar):
+		for i in range(len(lista_ordenar)):
+		    for j in range(i+1, len(lista_ordenar)):
+		        if lista_ordenar[i].vitorias <= lista_ordenar[j].vitorias:
+		            temp = lista_ordenar[i]
+		            lista_ordenar[i] = lista_ordenar[j]
+		            lista_ordenar[j] = temp
+		return lista_ordenar
 
 	def login(self):
 		while True:
@@ -95,7 +105,6 @@ class ControladorPrincipal:
 				self.add_jogador(self.__tela_inicial.pegar_dados_jogador("Digite o nome do novo jogador: "))
 			else:
 				self.__tela_inicial.mostra_mensagem(f'Bem vindo, {jogador.nome}')
-				self.__tela_inicial.mostra_mensagem("")
 				self.__jogador_logado = jogador
 				return jogador
 
