@@ -1,3 +1,4 @@
+
 from entidades.Personagem import Personagem
 from entidades.Healer import Healer
 from entidades.Mago import Mago
@@ -13,7 +14,6 @@ class ControladorPersonagem:
 	@property
 	def personagens_cadastrados(self):
 		return self.__personagens_cadastrados
-
 
 	def cria_personagem(self):
 		self.__tela_personagem.mostra_mensagem("--------- CRIAÇÃO DE PERSONAGEM ---------")

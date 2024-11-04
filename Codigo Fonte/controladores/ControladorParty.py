@@ -57,7 +57,6 @@ class ControladorParty():
 		for i in self.__jogador.parties:
 			self.__tela_party.mostra_mensagem(f'----------[{i.nome}]----------')
 			self.__tela_party.mostra_mensagem(f'{i.personagens[0].nome}, {i.personagens[1].nome}, {i.personagens[2].nome}, {i.personagens[3].nome}\n')
-	
 
 	def abrir_menu(self):
 		self.__jogador = self.__controlador_principal.jogador_logado
