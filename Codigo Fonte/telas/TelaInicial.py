@@ -40,8 +40,8 @@ class TelaInicial(AbstractTela):
 
 	def pegar_dados_jogador(self, window_name: str, msg: str):
 		layout =[
-					[ui.Text(msg, size = (25,1)), ui.InputText()],
-					[ui.Submit(), ui.Cancel()]
+					[ui.Text(msg, size = (len(msg),1)), ui.InputText()],
+					[ui.Submit(), ui.Exit()]
 				]
 		window = ui.Window(window_name).Layout(layout)
 		button, dic_valores = window.Read()

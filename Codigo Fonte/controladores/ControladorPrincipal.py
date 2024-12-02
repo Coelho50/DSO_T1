@@ -62,7 +62,6 @@ class ControladorPrincipal:
 				self.seleciona_jogador_por_nome(nome)
 			except JogadorNotFoundException:
 				self.__jogadores_cadastrados.append(Jogador(nome))
-				self.__tela_inicial.mostra_mensagem(f'{nome} cadastrado')
 				return None
 			else:
 				self.__tela_inicial.mostra_mensagem("Jogador já cadastrado")
@@ -94,17 +93,16 @@ class ControladorPrincipal:
 
 	def login(self):
 		while True:
-			nome_usuario = self.__tela_inicial.pegar_dados_jogador("Login", "Informe seu login(Digite 0 para fazer um novo cadastro):")
+			nome_usuario = self.__tela_inicial.pegar_dados_jogador("Login", "Informe seu login (digite 0 para fazer um novo cadastro):")
+			if nome_usuario == "0":
+				self.add_jogador(self.__tela_inicial.pegar_dados_jogador("Digite o nome do novo jogador: "))
+			elif nome_usuario  == None or not nome_usuario:
+				self.encerrar_sessao()
 			try:
-				if nome_usuario == "0":
-					raise Exception
 				jogador = self.seleciona_jogador_por_nome(nome_usuario)
 			except JogadorNotFoundException as e:
-				self.__tela_inicial.mostra_mensagem(e)
-			except Exception:
-				self.add_jogador(self.__tela_inicial.pegar_dados_jogador("Digite o nome do novo jogador: "))
+				self.__tela_inicial.mostra_mensagem('Erro', e)
 			else:
-				self.__tela_inicial.mostra_mensagem(f'Bem vindo, {jogador.nome}')
 				self.__jogador_logado = jogador
 				return jogador
 
