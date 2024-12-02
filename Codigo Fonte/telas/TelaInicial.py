@@ -1,27 +1,32 @@
 from telas.AbstractTela import AbstractTela
 from excecoes.OpcaoInvalidaException import OpcaoInvalidaException
+import PySimpleGUI as ui
 
 class TelaInicial(AbstractTela):
 	def __init__(self, controlador_principal):
 		self.__controlador_principal = controlador_principal
 
 	def mostra_menu(self, lista_opcoes):
-		print("------- MENU PRINCIPAL -------")
-		print("1 - Batalhas")
-		print("2 - Parties")
-		print("3 - Personagens")
-		print("4 - Listar/remover jogadores cadastrados")
-		print("5 - Fechar aplicação")
-		print("6 - Logout")
-		opcao = self.le_opcao(lista_opcoes)
+
+		layout =[
+					[ui.Text("1 - Batalhas")],
+					[ui.Text("2 - Parties")],
+					[ui.Text("3 - Personagens")],
+					[ui.Text("4 - Listar/remover jogadores cadastrados")],
+					[ui.Text("5 - Fechar aplicação")],
+					[ui.Text("6 - Logout")],
+					[ui.Text("O que deseja fazer?", size=(25,1)), ui.InputText()],
+					[ui.Submit(), ui.Cancel()]
+				]
+		window = ui.Window('Menu principal').Layout(layout)		
+		button, valor_lido = window.Read()
+		opcao = self.verifica_opcao(lista_opcoes, valor_lido)
 		return opcao
 
-	def le_opcao(self, lista_opcoes):
+	def verifica_opcao(self, lista_opcoes, valor_lido):
 		while True:
-			print("O que você deseja consultar?")
 			try:
-				opcao = int(input(':'))
-				if opcao not in lista_opcoes and opcao != 6:
+				if valor_lido not in lista_opcoes and valor_lido != 6:
 					raise OpcaoInvalidaException
 			except ValueError:
 				print("Opção inválida")

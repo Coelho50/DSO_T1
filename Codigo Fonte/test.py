@@ -1,10 +1,3 @@
-
-
-'''
-arquivo usado APENAS PARA TESTES, DEVE SER EXCLUIDO ANTES DA VERSAO FINAL
-'''
-
-
 #----------------- CONTROLADOR PRINCIPAL -----------------
 
 from controladores.ControladorPrincipal import ControladorPrincipal
@@ -43,3 +36,23 @@ main_control.jogadores_cadastrados[1].add_party(Party("Curandeiros",joao,matheus
 main_control.jogadores_cadastrados[0].add_party(Party("Magos de ataque",joao,matheus,marcos,lucas))
 
 main_control.abrir_sistema()
+
+
+#------------------- PARTE 2 ---------------------
+
+#-------------------  GUI    --------------------
+'''
+layout =[
+			[ui.Text("Cadastro")],
+			[ui.Text("Nome do novo cadastro: ", size = (25,1)), ui.InputText()],
+			[ui.Text("Nome do novo cadastro2: ", size = (25,1)), ui.InputText()],
+			[ui.Submit(), ui.Cancel()]
+		]
+
+window = ui.Window('Cadastro novo').Layout(layout)
+
+button, values = window.Read()
+
+print(button)
+print(values)
+'''
