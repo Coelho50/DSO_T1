@@ -7,7 +7,6 @@ class TelaInicial(AbstractTela):
 		self.__controlador_principal = controlador_principal
 
 	def mostra_menu(self, lista_opcoes):
-
 		layout =[
 					[ui.Text("1 - Batalhas")],
 					[ui.Text("2 - Parties")],
@@ -19,13 +18,15 @@ class TelaInicial(AbstractTela):
 					[ui.Submit(), ui.Cancel()]
 				]
 		window = ui.Window('Menu principal').Layout(layout)		
-		button, valor_lido = window.Read()
-		opcao = self.verifica_opcao(lista_opcoes, valor_lido)
+		button, dic_valores = window.Read()
+		window.CloseNonBlocking()
+		opcao = self.verifica_opcao(lista_opcoes, dic_valores)
 		return opcao
 
-	def verifica_opcao(self, lista_opcoes, valor_lido):
+	def verifica_opcao(self, lista_opcoes, valores):
 		while True:
 			try:
+				valor_lido = int(valores[0])
 				if valor_lido not in lista_opcoes and valor_lido != 6:
 					raise OpcaoInvalidaException
 			except ValueError:
@@ -35,8 +36,14 @@ class TelaInicial(AbstractTela):
 				print(e)
 				print()
 			else:
-				return opcao
+				return valor_lido
 
-	def pegar_dados_jogador(self, msg: str):
-		nome = input(msg)
-		return nome
+	def pegar_dados_jogador(self, window_name: str, msg: str):
+		layout =[
+					[ui.Text(msg, size = (25,1)), ui.InputText()],
+					[ui.Submit(), ui.Cancel()]
+				]
+		window = ui.Window(window_name).Layout(layout)
+		button, dic_valores = window.Read()
+		window.CloseNonBlocking()
+		return dic_valores[0]

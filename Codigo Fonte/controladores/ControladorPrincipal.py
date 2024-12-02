@@ -94,7 +94,7 @@ class ControladorPrincipal:
 
 	def login(self):
 		while True:
-			nome_usuario = self.__tela_inicial.pegar_dados_jogador("Login (digite 0 para cadastrar um novo jogador): ")
+			nome_usuario = self.__tela_inicial.pegar_dados_jogador("Login", "Informe seu login(Digite 0 para fazer um novo cadastro):")
 			try:
 				if nome_usuario == "0":
 					raise Exception
