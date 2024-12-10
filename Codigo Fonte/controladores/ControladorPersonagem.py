@@ -16,65 +16,57 @@ class ControladorPersonagem:
 		return self.__personagens_cadastrados
 
 	def cria_personagem(self):
-		self.__tela_personagem.mostra_mensagem("--------- CRIAÇÃO DE PERSONAGEM ---------")
-		self.__tela_personagem.mostra_mensagem("Insira abaixo os dados requisitados para criar um novo personagem")
-		classe = self.pegar_classe()
-		nome = self.pegar_nome()
-		hp = self.__tela_personagem.pegar_dados("HP: ", float)
-		item = self.__tela_personagem.pegar_dados("Item: ", str)
-		dps = self.__tela_personagem.pegar_dados("DPS: ", float)
-		mana = self.__tela_personagem.pegar_dados("Mana: ", float)
-		hps = self.__tela_personagem.pegar_dados("HPS: ", float)
-		if classe == "Healer":
-			self.__personagens_cadastrados.append(Healer(nome, hp, item, dps, mana, hps))
-		elif classe == "Mago":
-			self.__personagens_cadastrados.append(Mago(nome, hp, item, dps, mana, hps))
-		elif classe == "Guerreiro":
-			self.__personagens_cadastrados.append(Guerreiro(nome, hp, item, dps, mana, hps))
-		self.__tela_personagem.mostra_mensagem(f'{nome} adicionado a lista de personagens')
+		atributos = self.__tela_personagem.menu_criacao_personagem()
+		if atributos == None:
+			return 0
+		elif atributos[1] == "Healer":
+			self.__personagens_cadastrados.append(Healer(atributos[0], atributos[3], atributos[4], atributos[5], atributos[6], atributos[7]))
+		elif atributos[1] == "Mago":
+			self.__personagens_cadastrados.append(Mago(atributos[0], atributos[3], atributos[4], atributos[5], atributos[6], atributos[7]))
+		elif atributos[1] == "Guerreiro":
+			self.__personagens_cadastrados.append(Guerreiro(atributos[0], atributos[3], atributos[4], atributos[5], atributos[6], atributos[7]))
+		self.__tela_personagem.mostra_mensagem('Criação bem sucedida', f'{atributos[0]} adicionado a lista de personagens')
 
 	def remove_personagem(self):
-		self.__tela_personagem.mostra_mensagem("--------- REMOVER PERSONAGEM ---------")
-		self.lista_nomes_personagens()
-		self.__tela_personagem.mostra_mensagem("Quem você deseja remover?")
-		nome = self.__tela_personagem.pegar_dados(":", str)
+		nome = self.__tela_personagem.menu_remover_personagem(self.lista_nomes_personagens())
+		if nome == None:
+			return None
 		try:
 			self.verif_nome_repetido(nome)
 		except PersonagemJaAddException:
 			self.__personagens_cadastrados.remove(self.pegar_personagem_por_nome(nome))
-			self.__tela_personagem.mostra_mensagem(f'{nome} removido')
+			self.__tela_personagem.mostra_mensagem("Personagem removido", f'{nome} removido')
 		else:
-			self.__tela_personagem.mostra_mensagem("Personagem ainda não adicionado a lista")
+			self.__tela_personagem.mostra_mensagem("Erro", "Personagem ainda não adicionado a lista")
 
-	def lista_personagens(self):
-		vazio = True
-		self.__tela_personagem.mostra_mensagem("Quais classes você deseja listar? (Todas, Mago, Guerreiro, Healer)")
-		classe = self.__tela_personagem.pegar_dados(":", str)
-		if len(self.__personagens_cadastrados) == 0:
-			self.__tela_personagem.mostra_mensagem("Ainda não foram adicionados personagens")
-		elif classe == 'Todas':
-			for char in self.__personagens_cadastrados:
-				self.__tela_personagem.mostra_mensagem(f'{char.nome}: {char.hp} HP, {char.dps} DPS, {char.mana} Mana, {char.hps} HPS, item: {char.item}')
-		elif classe == 'Guerreiro' or classe == 'Mago' or classe == 'Healer':
-			for char in self.__personagens_cadastrados:
-				if char.classe == classe:
-					self.__tela_personagem.mostra_mensagem(f'{char.nome}: {char.hp} HP, {char.dps} DPS, {char.mana} Mana, {char.hps} HPS, item: {char.item}')
-					vazio = False
-			if vazio:
-				self.__tela_personagem.mostra_mensagem(f'Ainda não há personagens da classe {classe} na lista')
-		else:
-			self.__tela_personagem.mostra_mensagem("Classe inválida")
+	def lista_personagens_completa(self):
+		filtro = 'Todos'
+		while True:
+			lista_completa = []
+			if filtro == None:
+				return None
+			elif filtro == "Mago" or filtro == "Healer" or filtro == "Guerreiro":
+				for i in self.__personagens_cadastrados:
+					if i.classe == filtro:
+						lista_completa.append([f'{i.nome}: {i.item} ITEM, {i.hp}HP, {i.dps}DPS, {i.mana}MANA, {i.hps}HPS'])
+			else:
+				for i in self.__personagens_cadastrados:
+					lista_completa.append([f'{i.nome}: {i.item} ITEM, {i.hp}HP, {i.dps}DPS, {i.mana}MANA, {i.hps}HPS'])
+			filtro = self.__tela_personagem.menu_lista_personagens(lista_completa)
+
 
 	def lista_nomes_personagens(self):
-		for char in self.__personagens_cadastrados:
-			self.__tela_personagem.mostra_mensagem(char.nome)
+		lista_nomes = []
+		for i in self.__personagens_cadastrados:
+			lista_nomes.append(i.nome)
+		return lista_nomes
 
 	def abrir_menu(self):
-		lista_opcoes = {1: self.cria_personagem, 2: self.remove_personagem, 3: self.lista_personagens}
+		lista_opcoes = {1: self.cria_personagem, 2: self.remove_personagem, 3: self.lista_personagens_completa}
 		while True:
 			opcao_selecionada = self.__tela_personagem.mostra_menu(lista_opcoes)
-			if opcao_selecionada == 4: #--------------> perguntar pro professor uma maneira melhor
-				return 0
+			if opcao_selecionada == 4:
+				return None
 			else:
 				lista_opcoes[opcao_selecionada]()
 
@@ -88,12 +80,12 @@ class ControladorPersonagem:
 		if  self.pegar_personagem_por_nome(nome) != None:
 			raise PersonagemJaAddException
  	
-	def pegar_classe(self):
-		while True:
-			classe = self.__tela_personagem.pegar_dados("Classe: ", str)
-			if (classe == "Mago" or classe == "Healer" or classe == "Guerreiro"):
-				return classe
-			self.__tela_personagem.mostra_mensagem("Classe inválida. Um personagem deve ser Mago, Guerreiro ou Healer")
+#	def pegar_classe(self):
+#		while True:
+#			classe = self.__tela_personagem.pegar_dados("Classe: ", str)
+#			if (classe == "Mago" or classe == "Healer" or classe == "Guerreiro"):
+#				return classe
+#			self.__tela_personagem.mostra_mensagem("Classe inválida. Um personagem deve ser Mago, Guerreiro ou Healer")
 
 	def pegar_nome(self):
 		while True:

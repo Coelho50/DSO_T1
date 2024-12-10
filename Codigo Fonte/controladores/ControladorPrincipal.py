@@ -72,11 +72,11 @@ class ControladorPrincipal:
 			lista_nomes.append(i.nome)
 		return lista_nomes
 
-	def lista_jogadores_por_vitoria(self):
-		self.__tela_inicial.mostra_mensagem("Jogadores cadastrados:")
-		jogadores_ordenados = self.ordena_jogadores_vitoria(self.__jogadores_cadastrados.copy())
-		for i in jogadores_ordenados:
-			self.__tela_inicial.mostra_mensagem(f'[{i.nome}: {len(i.batalhas)} batalhas, {i.vitorias} vitórias]')
+#	def lista_jogadores_por_vitoria(self):
+#		self.__tela_inicial.mostra_mensagem("Jogadores cadastrados:")
+#		jogadores_ordenados = self.ordena_jogadores_vitoria(self.__jogadores_cadastrados.copy())
+#		for i in jogadores_ordenados:
+#			self.__tela_inicial.mostra_mensagem(f'[{i.nome}: {len(i.batalhas)} batalhas, {i.vitorias} vitórias]')
 
 	def lista_personagens_cadastrados(self):
 		return self.__controlador_personagem.personagens_cadastrados
@@ -119,7 +119,7 @@ class ControladorPrincipal:
 							4: self.remover_jogador, 5: self.encerrar_sessao}
 			while self.__jogador_logado != None:
 				opcao_selecionada = self.__tela_inicial.mostra_menu(lista_opcoes)
-				if opcao_selecionada == 6: #--------------> perguntar pro professor uma maneira melhor
+				if opcao_selecionada == 6:
 					self.__jogador_logado = None
 				elif opcao_selecionada == 'invalida':
 					continue

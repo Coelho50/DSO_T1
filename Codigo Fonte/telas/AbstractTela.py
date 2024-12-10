@@ -17,7 +17,7 @@ class AbstractTela(ABC):
 	def mostra_mensagem(self, header, msg):
 		layout =[
 					[ui.Text(msg)],
-					[ui.Exit()]
+					[ui.Button('Exit')]
 				]
 		dic_valores = 0
 		while dic_valores == 0:
