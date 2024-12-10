@@ -14,12 +14,14 @@ class TelaInicial(AbstractTela):
 					[ui.Text("4 - Listar/remover jogadores cadastrados")],
 					[ui.Text("5 - Fechar aplicação")],
 					[ui.Text("6 - Logout")],
-					[ui.Text("O que deseja fazer?", size=(25,1)), ui.InputText()],
-					[ui.Submit(), ui.Cancel()]
+					[ui.Text("O que deseja fazer?", size=(20,1)), ui.InputText()],
+					[ui.Submit(), ui.Exit()]
 				]
-		window = ui.Window('Menu principal').Layout(layout)		
+		window = ui.Window('Menu principal').Layout(layout)
 		button, dic_valores = window.Read()
 		window.CloseNonBlocking()
+		if button == 'Exit':
+			dic_valores[0] = 5
 		opcao = self.verifica_opcao(lista_opcoes, dic_valores)
 		return opcao
 
@@ -30,11 +32,11 @@ class TelaInicial(AbstractTela):
 				if valor_lido not in lista_opcoes and valor_lido != 6:
 					raise OpcaoInvalidaException
 			except ValueError:
-				print("Opção inválida")
-				print()
+				super().mostra_mensagem('Erro', 'Opção inválida')
+				return 'invalida'
 			except OpcaoInvalidaException as e:
-				print(e)
-				print()
+				super().mostra_mensagem('Erro', e)
+				return 'invalida'
 			else:
 				return valor_lido
 
@@ -46,4 +48,17 @@ class TelaInicial(AbstractTela):
 		window = ui.Window(window_name).Layout(layout)
 		button, dic_valores = window.Read()
 		window.CloseNonBlocking()
+		return dic_valores[0]
+
+	def tela_remocao_jogador(self, lista_jogadores):
+		list_box = ui.Listbox(lista_jogadores, size=(70,20), expand_y = True)
+		layout =[
+					[ui.Text("Jogador a ser removido:", size=(20,1)), ui.InputText(), ui.Submit(), ui.Exit()],
+					[list_box]
+				]
+		window = ui.Window('Remover jogador').Layout(layout)
+		button, dic_valores = window.Read()
+		window.CloseNonBlocking()
+		if button == 'Exit':
+			return None
 		return dic_valores[0]

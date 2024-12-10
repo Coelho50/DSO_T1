@@ -4,6 +4,7 @@ from controladores.ControladorPersonagem import ControladorPersonagem
 from controladores.ControladorParty import ControladorParty
 from controladores.ControladorBatalha import ControladorBatalha
 from excecoes.JogadorNotFoundException import JogadorNotFoundException
+from excecoes.RemoverJogadorLogadoException import RemoverJogadorLogadoException
 
 class ControladorPrincipal:
 
@@ -33,27 +34,25 @@ class ControladorPrincipal:
 		self.__controlador_personagem.abrir_menu()
 
 	def remover_jogador(self):
-		self.lista_jogadores_por_vitoria()
 		while True:
 			try:
-				nome_jogador = self.__tela_inicial.pegar_dados_jogador("Digite o nome caso queira remover um jogador (0 para retornar ao menu principal): ")
-				if nome_jogador == '0':
+				nome_jogador = self.__tela_inicial.tela_remocao_jogador(self.lista_nomes_jogadores())
+				if nome_jogador == None:
 					return None
-				if nome_jogador == self.__jogador_logado.nome:
-					raise Exception
+				elif nome_jogador == self.__jogador_logado.nome:
+					raise RemoverJogadorLogadoException
 				jogador_excluir = self.seleciona_jogador_por_nome(nome_jogador)
 			except JogadorNotFoundException as e:
-				self.__tela_inicial.mostra_mensagem(e)
-			except Exception:
-				self.__tela_inicial.mostra_mensagem("Excluindo o cadastro e encerrando sessão...")
+				self.__tela_inicial.mostra_mensagem(e, e)
+			except RemoverJogadorLogadoException as e:
+				self.__tela_inicial.mostra_mensagem("Encerrando sessão", e)
 				self.__jogadores_cadastrados.remove(self.__jogador_logado)
 				self.encerrar_sessao()
 			else:
 				self.__jogadores_cadastrados.remove(jogador_excluir)
-				self.__tela_inicial.mostra_mensagem(f'Jogador "{nome_jogador}" excluido')
+				self.__tela_inicial.mostra_mensagem('Remover Jogador', f'Jogador "{nome_jogador}" excluido')
 
 	def encerrar_sessao(self):
-		self.__tela_inicial.mostra_mensagem("Sessão encerrada.")
 		exit()
 
 	def add_jogador(self, nome: str):
@@ -66,6 +65,12 @@ class ControladorPrincipal:
 			else:
 				self.__tela_inicial.mostra_mensagem("Jogador já cadastrado")
 				return None
+
+	def lista_nomes_jogadores(self):
+		lista_nomes = []
+		for i in self.__jogadores_cadastrados:
+			lista_nomes.append(i.nome)
+		return lista_nomes
 
 	def lista_jogadores_por_vitoria(self):
 		self.__tela_inicial.mostra_mensagem("Jogadores cadastrados:")
@@ -95,16 +100,17 @@ class ControladorPrincipal:
 		while True:
 			nome_usuario = self.__tela_inicial.pegar_dados_jogador("Login", "Informe seu login (digite 0 para fazer um novo cadastro):")
 			if nome_usuario == "0":
-				self.add_jogador(self.__tela_inicial.pegar_dados_jogador("Digite o nome do novo jogador: "))
+				self.add_jogador(self.__tela_inicial.pegar_dados_jogador("Novo login", "Digite o nome do novo jogador: "))
 			elif nome_usuario  == None or not nome_usuario:
 				self.encerrar_sessao()
-			try:
-				jogador = self.seleciona_jogador_por_nome(nome_usuario)
-			except JogadorNotFoundException as e:
-				self.__tela_inicial.mostra_mensagem('Erro', e)
 			else:
-				self.__jogador_logado = jogador
-				return jogador
+				try:
+					jogador = self.seleciona_jogador_por_nome(nome_usuario)
+				except JogadorNotFoundException as e:
+					self.__tela_inicial.mostra_mensagem('Erro', e)
+				else:
+					self.__jogador_logado = jogador
+					return jogador
 
 	def abrir_sistema(self):
 		while True:
@@ -115,5 +121,7 @@ class ControladorPrincipal:
 				opcao_selecionada = self.__tela_inicial.mostra_menu(lista_opcoes)
 				if opcao_selecionada == 6: #--------------> perguntar pro professor uma maneira melhor
 					self.__jogador_logado = None
+				elif opcao_selecionada == 'invalida':
+					continue
 				else:
 					lista_opcoes[opcao_selecionada]()
