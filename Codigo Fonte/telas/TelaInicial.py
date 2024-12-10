@@ -48,6 +48,7 @@ class TelaInicial(AbstractTela):
 		window = ui.Window(window_name).Layout(layout)
 		button, dic_valores = window.Read()
 		window.CloseNonBlocking()
+		print(dic_valores[0])
 		return dic_valores[0]
 
 	def tela_remocao_jogador(self, lista_jogadores):

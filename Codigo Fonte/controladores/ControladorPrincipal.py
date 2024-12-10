@@ -5,12 +5,13 @@ from controladores.ControladorParty import ControladorParty
 from controladores.ControladorBatalha import ControladorBatalha
 from excecoes.JogadorNotFoundException import JogadorNotFoundException
 from excecoes.RemoverJogadorLogadoException import RemoverJogadorLogadoException
+from DAO.JogadorDAO import JogadorDAO
 
 class ControladorPrincipal:
-
 	def __init__(self):
-		self.__jogadores_cadastrados = []
+		#self.__jogadores_cadastrados = []
 		self.__jogador_logado = None
+		self.__jogador_DAO = JogadorDAO()
 		self.__controlador_personagem = ControladorPersonagem(self)
 		self.__controlador_party = ControladorParty(self)
 		self.__controlador_batalhas = ControladorBatalha(self)
@@ -22,7 +23,7 @@ class ControladorPrincipal:
 
 	@property
 	def jogadores_cadastrados(self):
-		return self.__jogadores_cadastrados
+		return self.__jogador_DAO.get_all()
 
 	def editar_batalhas(self):
 		self.__controlador_batalhas.abrir_menu()
@@ -46,10 +47,10 @@ class ControladorPrincipal:
 				self.__tela_inicial.mostra_mensagem(e, e)
 			except RemoverJogadorLogadoException as e:
 				self.__tela_inicial.mostra_mensagem("Encerrando sessão", e)
-				self.__jogadores_cadastrados.remove(self.__jogador_logado)
+				self.__jogador_DAO.remove(self.__jogador_logado.nome)
 				self.encerrar_sessao()
 			else:
-				self.__jogadores_cadastrados.remove(jogador_excluir)
+				self.__jogador_DAO.remove(jogador_excluir.nome)
 				self.__tela_inicial.mostra_mensagem('Remover Jogador', f'Jogador "{nome_jogador}" excluido')
 
 	def encerrar_sessao(self):
@@ -60,15 +61,15 @@ class ControladorPrincipal:
 			try:
 				self.seleciona_jogador_por_nome(nome)
 			except JogadorNotFoundException:
-				self.__jogadores_cadastrados.append(Jogador(nome))
+				self.__jogador_DAO.add(Jogador(nome))
 				return None
 			else:
-				self.__tela_inicial.mostra_mensagem("Jogador já cadastrado")
+				self.__tela_inicial.mostra_mensagem('Erro', "Jogador já cadastrado")
 				return None
 
 	def lista_nomes_jogadores(self):
 		lista_nomes = []
-		for i in self.__jogadores_cadastrados:
+		for i in self.__jogador_DAO.get_all():
 			lista_nomes.append(i.nome)
 		return lista_nomes
 
@@ -79,13 +80,12 @@ class ControladorPrincipal:
 #			self.__tela_inicial.mostra_mensagem(f'[{i.nome}: {len(i.batalhas)} batalhas, {i.vitorias} vitórias]')
 
 	def lista_personagens_cadastrados(self):
-		return self.__controlador_personagem.personagens_cadastrados
+		jogador = self.__controlador_personagem.personagens_cadastrados
+		if jogador == 'Chave inexistente':
+			raise JogadorNotFoundException
 
 	def seleciona_jogador_por_nome(self, nome):
-		for jogador in self.__jogadores_cadastrados:
-			if jogador.nome == nome:
-				return jogador
-		raise JogadorNotFoundException
+		return self.__jogador_DAO.get(nome)
 
 	def ordena_jogadores_vitoria(self, lista_ordenar):
 		for i in range(len(lista_ordenar)):
