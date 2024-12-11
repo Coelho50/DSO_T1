@@ -1,7 +1,8 @@
 class Personagem:
-	def __init__(self, nome: str, hp: float, item: str, dps: float, mana: float, hps: float):
+	def __init__(self, nome: str, classe:str, hp: float, item: str, dps: float, mana: float, hps: float):
 		self.__usos = 0
 		self.__nome = None
+		self.__classe = None
 		self.__hp = None
 		self.__item = None
 		self.__dps = None
@@ -12,6 +13,10 @@ class Personagem:
 			self.__nome = nome
 		else:
 			raise ValueError("nome") 
+		if isinstance(classe, str):
+			self.__classe = classe
+		else:
+			raise ValueError("classe")
 		if isinstance(hp, float):
 			self.__hp = hp
 		else:
@@ -45,6 +50,10 @@ class Personagem:
 		else:
 			raise ValueError("nome")
 
+	@property
+	def classe(self):
+		return self.__classe
+	
 	@property
 	def usos(self) -> int:
 		return self.__usos
@@ -80,10 +89,6 @@ class Personagem:
 			self.__item = item
 		else:
 			raise ValueError("item")
-
-	@property
-	def classe(self) -> str:
-		return self.__class__.__name__
 
 	@property
 	def dps(self) -> float:

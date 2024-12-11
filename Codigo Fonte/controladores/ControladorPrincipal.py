@@ -74,7 +74,6 @@ class ControladorPrincipal:
 		lista_nomes = []
 		for i in self.__jogador_DAO.get_all():
 			lista_nomes.append(i.nome)
-		print(self.__jogador_DAO.get_all())
 		return lista_nomes
 
 #	def lista_jogadores_por_vitoria(self):
@@ -84,7 +83,7 @@ class ControladorPrincipal:
 #			self.__tela_inicial.mostra_mensagem(f'[{i.nome}: {len(i.batalhas)} batalhas, {i.vitorias} vitórias]')
 
 	def lista_personagens_cadastrados(self):
-		personagem = self.__controlador_personagem.personagens_cadastrados
+		personagem = self.__controlador_personagem.lista_nomes_personagens
 		if personagem == 'Chave inexistente':
 			raise PersonagemNotFoundException
 
