@@ -1,6 +1,7 @@
 from telas.AbstractTela import AbstractTela
 from excecoes.OpcaoInvalidaException import OpcaoInvalidaException
 from excecoes.ClasseInvalidaException import ClasseInvalidaException
+from excecoes.PersonagemJaAddException import PersonagemJaAddException
 import PySimpleGUI as ui
 
 class TelaPersonagem(AbstractTela):
@@ -48,6 +49,8 @@ class TelaPersonagem(AbstractTela):
 					return None
 				try:
 					self.verifica_valores(dic_valores)
+				except PersonagemJaAddException:
+					super().mostra_mensagem('Erro', 'Personagem de mesmo nome já adicionado')
 				except ClasseInvalidaException:
 					super().mostra_mensagem('Erro', 'Classe deve ser Healer, Mago ou Guerreiro')
 				except ValueError:
@@ -82,8 +85,6 @@ class TelaPersonagem(AbstractTela):
 			return None
 		return dic_valores[0]
 
-
-
 	#deve ser passado para a funcao a lista de opcoes a serem escolhidas
 	def verifica_opcao(self, lista_opcoes, valores):
 		valor_lido = valores[0]
@@ -103,6 +104,7 @@ class TelaPersonagem(AbstractTela):
 
 	def verifica_valores(self, dic_valores):
 			classes = ['Healer', 'Mago', 'Guerreiro']
+			self.__controlador_personagem.verif_nome_repetido(dic_valores[0]) #->pode disparar PersonagemJaAddException
 			if dic_valores[1] not in classes:
 				raise ClasseInvalidaException
 			for i in range(3, len(dic_valores)):

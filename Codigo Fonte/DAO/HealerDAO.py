@@ -1,4 +1,4 @@
-from DAOs.dao import DAO
+from DAO.DAO import DAO
 from entidades.Healer import Healer
 
 class HealerDAO(DAO):

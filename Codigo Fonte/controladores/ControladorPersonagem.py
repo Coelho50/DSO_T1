@@ -1,30 +1,43 @@
-
 from entidades.Personagem import Personagem
 from entidades.Healer import Healer
 from entidades.Mago import Mago
 from entidades.Guerreiro import Guerreiro
 from telas.TelaPersonagem import TelaPersonagem
 from excecoes.PersonagemJaAddException import PersonagemJaAddException
+from excecoes.PersonagemNotFoundException import PersonagemNotFoundException
+from DAO.HealerDAO import HealerDAO
+from DAO.GuerreiroDAO import GuerreiroDAO
+from DAO.MagoDAO import MagoDAO
+
 #Controle responsavel pela lista de personagens. Instancia a tela de personagens a ser utilizada pelo usuario
 class ControladorPersonagem:
 	def __init__(self, controlador_principal):
 		self.__tela_personagem = TelaPersonagem(self)
-		self.__personagens_cadastrados = []
+		#self.__personagens_cadastrados = []
+		self.__healer_DAO = HealerDAO()
+		self.__mago_DAO = MagoDAO()
+		self.__guerreiro_DAO = GuerreiroDAO()
 
-	@property
 	def personagens_cadastrados(self):
-		return self.__personagens_cadastrados
+		lista_nomes = []
+		for i in self.__healer_DAO.get_all():
+			lista_nomes.append(i.nome)
+		for i in self.__mago_DAO.get_all():
+			lista_nomes.append(i.nome)
+		for i in self.__guerreiro_DAO.get_all():
+			lista_nomes.append(i.nome)
+		return lista_nomes
 
 	def cria_personagem(self):
 		atributos = self.__tela_personagem.menu_criacao_personagem()
 		if atributos == None:
 			return 0
 		elif atributos[1] == "Healer":
-			self.__personagens_cadastrados.append(Healer(atributos[0], atributos[3], atributos[4], atributos[5], atributos[6], atributos[7]))
+			self.__healer_DAO.add(Healer(atributos[0], atributos[3], atributos[4], atributos[5], atributos[6], atributos[7]))
 		elif atributos[1] == "Mago":
-			self.__personagens_cadastrados.append(Mago(atributos[0], atributos[3], atributos[4], atributos[5], atributos[6], atributos[7]))
+			self.__mago_DAO.add(Mago(atributos[0], atributos[3], atributos[4], atributos[5], atributos[6], atributos[7]))
 		elif atributos[1] == "Guerreiro":
-			self.__personagens_cadastrados.append(Guerreiro(atributos[0], atributos[3], atributos[4], atributos[5], atributos[6], atributos[7]))
+			self.__guerreiro_DAO.add(Guerreiro(atributos[0], atributos[3], atributos[4], atributos[5], atributos[6], atributos[7]))
 		self.__tela_personagem.mostra_mensagem('Criação bem sucedida', f'{atributos[0]} adicionado a lista de personagens')
 
 	def remove_personagem(self):
@@ -46,18 +59,22 @@ class ControladorPersonagem:
 			if filtro == None:
 				return None
 			elif filtro == "Mago" or filtro == "Healer" or filtro == "Guerreiro":
-				for i in self.__personagens_cadastrados:
+				for i in self.personagens_cadastrados():
 					if i.classe == filtro:
 						lista_completa.append([f'{i.nome}: {i.item} ITEM, {i.hp}HP, {i.dps}DPS, {i.mana}MANA, {i.hps}HPS'])
 			else:
-				for i in self.__personagens_cadastrados:
+				for i in self.personagens_cadastrados():
 					lista_completa.append([f'{i.nome}: {i.item} ITEM, {i.hp}HP, {i.dps}DPS, {i.mana}MANA, {i.hps}HPS'])
 			filtro = self.__tela_personagem.menu_lista_personagens(lista_completa)
 
 
-	def lista_nomes_personagens(self):
+	def lista_nomes_personagens(self):	#-> Retorna o nome de todos os personagens como uma lista
 		lista_nomes = []
-		for i in self.__personagens_cadastrados:
+		for i in self.__healer_DAO.get_all():
+			lista_nomes.append(i.nome)
+		for i in self.__mago_DAO.get_all():
+			lista_nomes.append(i.nome)
+		for i in self.__guerreiro_DAO.get_all():
 			lista_nomes.append(i.nome)
 		return lista_nomes
 
@@ -71,28 +88,29 @@ class ControladorPersonagem:
 				lista_opcoes[opcao_selecionada]()
 
 	def pegar_personagem_por_nome(self, nome):
-		for char in self.__personagens_cadastrados:
-			if char.nome == nome:
-				return char
-		return None
+		personagem = self.__healer_DAO.get(nome)
+		if personagem == 'Chave inexistente':
+			personagem = self.__mago_DAO.get(nome)
+		if personagem == 'Chave inexistente':
+			personagem = self.__guerreiro_DAO.get(nome)
+		if personagem == 'Chave inexistente':
+			raise PersonagemNotFoundException
+		return personagem
 
 	def verif_nome_repetido(self, nome):
-		if  self.pegar_personagem_por_nome(nome) != None:
+		try:
+			self.pegar_personagem_por_nome(nome)
+		except PersonagemNotFoundException:
+			return 0
+		else:
 			raise PersonagemJaAddException
- 	
-#	def pegar_classe(self):
-#		while True:
-#			classe = self.__tela_personagem.pegar_dados("Classe: ", str)
-#			if (classe == "Mago" or classe == "Healer" or classe == "Guerreiro"):
-#				return classe
-#			self.__tela_personagem.mostra_mensagem("Classe inválida. Um personagem deve ser Mago, Guerreiro ou Healer")
 
-	def pegar_nome(self):
-		while True:
-			nome = self.__tela_personagem.pegar_dados("Nome: ", str)
-			try:
-				self.verif_nome_repetido(nome)
-			except PersonagemJaAddException as e:
-				self.__tela_personagem.mostra_mensagem(e)
-			else:
-				return nome
+#	def pegar_nome(self):
+#		while True:
+#			nome = self.__tela_personagem.pegar_dados("Nome: ", str)
+#			try:
+#				self.verif_nome_repetido(nome)
+#			except PersonagemJaAddException as e:
+#				self.__tela_personagem.mostra_mensagem(e)
+#			else:
+#				return nome

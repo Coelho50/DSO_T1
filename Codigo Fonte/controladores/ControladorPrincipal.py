@@ -4,6 +4,7 @@ from controladores.ControladorPersonagem import ControladorPersonagem
 from controladores.ControladorParty import ControladorParty
 from controladores.ControladorBatalha import ControladorBatalha
 from excecoes.JogadorNotFoundException import JogadorNotFoundException
+from excecoes.PersonagemNotFoundException import PersonagemNotFoundException
 from excecoes.RemoverJogadorLogadoException import RemoverJogadorLogadoException
 from DAO.JogadorDAO import JogadorDAO
 
@@ -42,6 +43,8 @@ class ControladorPrincipal:
 					return None
 				elif nome_jogador == self.__jogador_logado.nome:
 					raise RemoverJogadorLogadoException
+				elif nome_jogador == 'Chave inexistente':
+					raise JogadorNotFoundException
 				jogador_excluir = self.seleciona_jogador_por_nome(nome_jogador)
 			except JogadorNotFoundException as e:
 				self.__tela_inicial.mostra_mensagem(e, e)
@@ -71,6 +74,7 @@ class ControladorPrincipal:
 		lista_nomes = []
 		for i in self.__jogador_DAO.get_all():
 			lista_nomes.append(i.nome)
+		print(self.__jogador_DAO.get_all())
 		return lista_nomes
 
 #	def lista_jogadores_por_vitoria(self):
@@ -80,12 +84,16 @@ class ControladorPrincipal:
 #			self.__tela_inicial.mostra_mensagem(f'[{i.nome}: {len(i.batalhas)} batalhas, {i.vitorias} vitórias]')
 
 	def lista_personagens_cadastrados(self):
-		jogador = self.__controlador_personagem.personagens_cadastrados
-		if jogador == 'Chave inexistente':
-			raise JogadorNotFoundException
+		personagem = self.__controlador_personagem.personagens_cadastrados
+		if personagem == 'Chave inexistente':
+			raise PersonagemNotFoundException
 
 	def seleciona_jogador_por_nome(self, nome):
-		return self.__jogador_DAO.get(nome)
+		jogador = self.__jogador_DAO.get(nome)
+		if jogador == 'Chave inexistente':
+			raise JogadorNotFoundException
+		else:
+			return jogador
 
 	def ordena_jogadores_vitoria(self, lista_ordenar):
 		for i in range(len(lista_ordenar)):

@@ -1,4 +1,4 @@
-from DAOs.dao import DAO
+from DAO.DAO import DAO
 from entidades.Guerreiro import Guerreiro
 
 class GuerreiroDAO(DAO):

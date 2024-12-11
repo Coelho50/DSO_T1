@@ -30,13 +30,13 @@ class DAO(ABC):
                 self.__cache[key] = obj #atualiza a entrada
                 self.__dump()  #atualiza o arquivo
         except KeyError:
-            raise JogadorNotFoundException
+            return 'Chave inexistente'
 
     def get(self, key):
         try:
             return self.__cache[key]
         except KeyError:
-            raise JogadorNotFoundException
+            return 'Chave inexistente'
 
     # esse método precisa chamar o self.__dump()
     def remove(self, key):
@@ -44,7 +44,7 @@ class DAO(ABC):
             self.__cache.pop(key)
             self.__dump() #atualiza o arquivo depois de remover um objeto
         except KeyError:
-            raise JogadorNotFoundException
+            return 'Chave inexistente'
 
     def get_all(self):
         return self.__cache.values()
