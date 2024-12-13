@@ -11,31 +11,18 @@ class ControladorBatalha():
 		self.__tela_batalha = TelaBatalha(self)
 		self.__controlador_principal = controlador_principal
 		self.__jogador1 = Jogador
-		self.__jogadores = controlador_principal.jogadores_cadastrados
+		
 
 	def cria_batalha(self):
-			self.__tela_batalha.mostra_mensagem("--------- CRIAÇÃO DE BATALHA ---------")
-			while True:
-				jogador2 = self.verificador(self.__jogadores,"Quem é o jogador adversário?(digite '0' para cancelar)",JogadorNotFoundException)
-				if jogador2 == None:
-					return None
-				elif jogador2 == self.__jogador1:
-					self.__tela_batalha.mostra_mensagem("Jogador não pode batalhar contra sigo mesmo!")
-				else:
-					break
-			party1 = self.verificador(self.__jogador1.parties,"Qual a sua party?(digite '0' para cancelar)",PartyNotFoundException)
-			if party1 == None:
-				return None
-			party2 = self.verificador(jogador2.parties,"Qual a party do adversário?(digite '0' para cancelar)",PartyNotFoundException)
-			if party2 == None:
-				return None
-			vencedor = self.verificador([self.__jogador1, jogador2],"Quem ganhou a batalha?", JogadorNotFoundException)
-			if vencedor == None:
-				return None
-			b = Batalha(self.__jogador1, jogador2, party1, party2, vencedor)
-			self.__jogador1.add_batalha(b)
-			jogador2.add_batalha(b)
-			self.__tela_batalha.mostra_mensagem("batalha criada!")
+		atributos = self.__tela_batalha.menu_criacao_batalha(self.__jogador1, self.__controlador_principal.jogadores_cadastrados)
+		if atributos == None:
+			return 0
+		else:
+			self.__jogador1.add_batalha(Batalha(atributos[0], atributos[1], atributos[2], atributos[3], atributos[4]))
+			self.__controlador_principal.jogador_DAO.update(self.__jogador1)
+			atributos[1].add_batalha(Batalha(atributos[0], atributos[1], atributos[2], atributos[3], atributos[4]))
+			self.__controlador_principal.jogador_DAO.update(atributos[1])
+		self.__tela_batalha.mostra_mensagem('Criação bem sucedida','Batalha adicionada com sucesso.')
 
 	def remove_batalha(self):
 		while True:

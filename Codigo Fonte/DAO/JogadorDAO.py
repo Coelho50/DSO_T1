@@ -10,7 +10,7 @@ class JogadorDAO(DAO):
             super().add(jogador.nome, jogador)
     
     def update(self, jogador: Jogador):
-        if((jogador is not None) and isinstance(jogador, Jogador) and isinstance(jogador.nome, int)):
+        if((jogador is not None) and isinstance(jogador, Jogador) and isinstance(jogador.nome, str)):
             super().update(jogador.nome, jogador)
     
     def get(self, key: str):

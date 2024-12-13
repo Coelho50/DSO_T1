@@ -75,7 +75,9 @@ class ControladorPersonagem:
 			return 0
 		else:
 			raise PersonagemJaAddException
-
+	@property
+	def personagem_DAO(self):
+		return self.__personagem_DAO.get_all()
 #	def pegar_nome(self):
 #		while True:
 #			nome = self.__tela_personagem.pegar_dados("Nome: ", str)

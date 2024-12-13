@@ -25,6 +25,10 @@ class ControladorPrincipal:
 	@property
 	def jogadores_cadastrados(self):
 		return self.__jogador_DAO.get_all()
+	
+	@property
+	def jogador_DAO(self):
+		return self.__jogador_DAO
 
 	def editar_batalhas(self):
 		self.__controlador_batalhas.abrir_menu()
@@ -86,6 +90,9 @@ class ControladorPrincipal:
 		personagem = self.__controlador_personagem.lista_nomes_personagens
 		if personagem == 'Chave inexistente':
 			raise PersonagemNotFoundException
+	
+	def personagens(self):
+		return self.__controlador_personagem.personagem_DAO
 
 	def seleciona_jogador_por_nome(self, nome):
 		jogador = self.__jogador_DAO.get(nome)

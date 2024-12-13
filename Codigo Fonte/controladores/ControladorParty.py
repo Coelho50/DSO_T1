@@ -9,32 +9,17 @@ class ControladorParty():
 		self.__tela_party = TelaParty(self)
 		self.__controlador_principal = controlador_principal
 		self.__jogador = None
-		self._personagens_cadastrados = controlador_principal.lista_personagens_cadastrados()
+		self.__personagens = controlador_principal.personagens()
 	
 	def cria_party(self):
-		self.__tela_party.mostra_mensagem("--------- CRIAÇÃO DE PARTY ---------")
-		self.__tela_party.mostra_mensagem("Como se chamará a sua party?")
-		nome_party = input(": ")
-		self.__tela_party.mostra_mensagem("--------- PERSONAGENS DISPONÍVEIS ---------")
-		for p in self._personagens_cadastrados:
-			self.__tela_party.mostra_mensagem(f"{p.nome}")
-		n_char = 0
-		personagens = []
-		while n_char != 4:
-				try:
-					print(f"Digite o nome do {n_char+1}° personagem da sua Party(Digite 0 para cancelar):")
-					nome = self.__tela_party.pegar_dados("Nome: ", str)
-					if nome == "0":
-						return None
-					elif self.verificador(nome, self._personagens_cadastrados) == None:
-						raise PersonagemNotFoundException
-					else:
-						personagens.append(self.verificador(nome, self._personagens_cadastrados))
-						n_char += 1
-				except PersonagemNotFoundException as e:
-					self.__tela_party.mostra_mensagem(e)
-		self.__jogador.add_party(Party(nome_party, personagens[0], personagens[1], personagens[2], personagens[3]))
-		self.__tela_party.mostra_mensagem("Party criada!")
+		atributos = self.__tela_party.menu_criacao_party(self.__personagens)
+		if atributos == None:
+			return 0
+		else:
+			self.__jogador.add_party(Party(atributos[0], atributos[1], atributos[2], atributos[3], atributos[4]))
+			print(self.__jogador.parties)
+			self.__controlador_principal.jogador_DAO.update(self.__jogador)
+		self.__tela_party.mostra_mensagem("Criação bem sucedida","Party criada!")
 
 	def remove_party(self):
 		while True:

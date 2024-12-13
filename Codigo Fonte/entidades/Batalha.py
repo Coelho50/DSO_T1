@@ -42,9 +42,10 @@ class Batalha:
         return self.__vencedor
     @vencedor.setter
     def vencedor(self, vencedor: Jogador):
-        self.__vencedor=vencedor
-
-            
+        self.__vencedor = vencedor
+    @property
+    def nome(self):
+        return f"{self.__jogador_1}({self.party_1}) x {self.__jogador_2}({self.party_2}): Vencedor {self.__vencedor}"
 
 
         
