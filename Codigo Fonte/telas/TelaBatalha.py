@@ -63,15 +63,30 @@ class TelaBatalha(AbstractTela):
 				try:
 					jogador2 = self.verificador(dic_valores[0], jogadores, JogadorNotFoundException)
 					party1 = self.verificador(dic_valores[1], jogador1.parties, PartyNotFoundException)
-					party2 = self.verificador(dic_valores[2], dic_valores[0].parties, PartyNotFoundException)
-					vencedor = self.verificador(dic_valores[3], [dic_valores[0], jogador1], JogadorNotFoundException)
+					party2 = self.verificador(dic_valores[2], jogador2.parties, PartyNotFoundException)
+					vencedor = self.verificador(dic_valores[3], [jogador2, jogador1], JogadorNotFoundException)
 				except:
 					continue
 				if jogador2 != None and party1 != None and party2 != None and vencedor != None:
 					break
+		
 		window.CloseNonBlocking()
 		return [jogador1, jogador2, party1, party2, vencedor]
-			
+	
+	def menu_lista_batalhas(self, lista_batalhas):
+		list_box = ui.Listbox(lista_batalhas, size=(70,20), expand_y = True)
+		layout =[
+					[ui.Text("Suas batalhas: ", size=(37,1))],
+					[list_box],
+					[ui.Button('Return')]
+				]
+		window = ui.Window('Lista de batalhas').Layout(layout)
+		button = window.Read()
+		window.CloseNonBlocking()
+		if button == 'Return':
+			return None
+		return None
+	
 	def le_opcao(self, lista_opcoes):
 		while True:
 			print("O que você deseja fazer?")
@@ -106,4 +121,4 @@ class TelaBatalha(AbstractTela):
 			raise exception
 		except exception as e:
 			super().mostra_mensagem("Erro", e)
-			return False
+			return None

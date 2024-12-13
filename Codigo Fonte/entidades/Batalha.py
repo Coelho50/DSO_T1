@@ -45,7 +45,7 @@ class Batalha:
         self.__vencedor = vencedor
     @property
     def nome(self):
-        return f"{self.__jogador_1}({self.party_1}) x {self.__jogador_2}({self.party_2}): Vencedor {self.__vencedor}"
+        return f"{self.__jogador_1.nome}({self.party_1.nome}) x {self.__jogador_2.nome}({self.party_2.nome}): Vencedor {self.__vencedor.nome}"
 
 
         

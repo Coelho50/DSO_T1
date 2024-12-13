@@ -10,38 +10,40 @@ class ControladorParty():
 		self.__controlador_principal = controlador_principal
 		self.__jogador = None
 		self.__personagens = controlador_principal.personagens()
-	
+
+	@property
+	def controlador_principal(self):
+		return self.__controlador_principal
+
 	def cria_party(self):
 		atributos = self.__tela_party.menu_criacao_party(self.__personagens)
 		if atributos == None:
 			return 0
 		else:
 			self.__jogador.add_party(Party(atributos[0], atributos[1], atributos[2], atributos[3], atributos[4]))
-			print(self.__jogador.parties)
 			self.__controlador_principal.jogador_DAO.update(self.__jogador)
 		self.__tela_party.mostra_mensagem("Criação bem sucedida","Party criada!")
 
 	def remove_party(self):
-		while True:
-			self.__tela_party.mostra_mensagem("Qual party deseja remover?(digite '0' para sair)")
-			nome = input(": ")
-			try:
-				if nome == "0":
-					break
-				elif self.verificador(nome,self.__jogador.parties) != None:
-					self.__jogador.remove_party(self.verificador(nome,self.__jogador.parties))
-					self.__tela_party.mostra_mensagem(f"Party '{nome}' removida")
-					break
-				else:
-					raise PartyNotFoundException
-			except PartyNotFoundException as e:
-				self.__tela_party.mostra_mensagem(e)
+		parties = []
+		for p in self.jogador.parties:
+			parties.append(p.nome)
+		nome = self.__tela_party.menu_remover_party(parties)
+		if nome == None:
+			return None
+		for p in self.jogador.parties:
+			if p.nome == nome:
+				self.__jogador.remove_party(p)
+				self.__controlador_principal.jogador_DAO.update(self.__jogador)
+				self.__tela_party.mostra_mensagem("party removido", f'{nome} removido')
+				return None
+		self.__tela_party.mostra_mensagem("Erro", "party ainda não adicionado a lista")
 		
 	def lista_parties(self):
-		self.__tela_party.mostra_mensagem(f"Parties de {self.__jogador.nome}:")
-		for i in self.__jogador.parties:
-			self.__tela_party.mostra_mensagem(f'----------[{i.nome}]----------')
-			self.__tela_party.mostra_mensagem(f'{i.personagens[0].nome}, {i.personagens[1].nome}, {i.personagens[2].nome}, {i.personagens[3].nome}\n')
+		parties = []
+		for p in self.jogador.parties:
+			parties.append(p.nome)
+		self.__tela_party.menu_lista_parties(parties)
 
 	def abrir_menu(self):
 		self.__jogador = self.__controlador_principal.jogador_logado

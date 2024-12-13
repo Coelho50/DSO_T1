@@ -46,15 +46,11 @@ class ControladorBatalha():
 				self.__tela_batalha.mostra_mensagem(e)
 		
 	def lista_batalhas(self):
-		self.__tela_batalha.mostra_mensagem("------------ BATALHAS DO JOGADOR ------------")
-		c = 1
-		for b in self.__jogador1.batalhas:
-			self.__tela_batalha.mostra_mensagem(f"{c}° Batalha")
-			self.__tela_batalha.mostra_mensagem(f"{b.jogador_1.nome}({b.party_1.nome}) X {b.jogador_2.nome}({b.party_2.nome})")
-			self.__tela_batalha.mostra_mensagem(f"Vencedor: {b.vencedor.nome}")
-			self.__tela_batalha.mostra_mensagem("-----------------------------------")
-		self.__tela_batalha.mostra_mensagem(f"Número total de batalhas: {len(self.__jogador1.batalhas)}")
-		self.__tela_batalha.mostra_mensagem(f"Vitórias: {self.__jogador1.vitorias}")
+		batalhas = []
+		for p in self.__jogador1.batalhas:
+			batalhas.append(p.nome)
+		print(batalhas)
+		self.__tela_batalha.menu_lista_batalhas(batalhas)
 
 	def abrir_menu(self):
 		self.__jogador1 = self.__controlador_principal.jogador_logado
