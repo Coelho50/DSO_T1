@@ -25,26 +25,21 @@ class ControladorBatalha():
 		self.__tela_batalha.mostra_mensagem('Criação bem sucedida','Batalha adicionada com sucesso.')
 
 	def remove_batalha(self):
-		while True:
-			try:
-				self.__tela_batalha.mostra_mensagem("Qual batalha deseja remover?(digite '0' para cancelar)")
-				self.lista_batalhas()
-				n = self.__tela_batalha.pegar_dados("N° da batalha: ", int)
-				if n == "0":
-						return None
-				elif n > 0 and n <= len(self.__jogador1.batalhas):
-					b = self.__jogador1.batalhas[n-1]
-					j1 = self.__jogador1.batalhas[n-1].jogador_1 # O jogador logado pode estar na primeira ou segunda posição
-					j2 = self.__jogador1.batalhas[n-1].jogador_2 # Se remover o jogador logado primeiro não será possível remover o segundo
-					j1.remove_batalha(b)
-					j2.remove_batalha(b)
-					self.__tela_batalha.mostra_mensagem("Batalha removida!")
-					return None
-				else:
-					raise BatalhaNotFoundException
-			except BatalhaNotFoundException as e:
-				self.__tela_batalha.mostra_mensagem(e)
+		batalhas = []
+		c=0
+		for p in self.__jogador1.batalhas:
+			c += 1
+			batalhas.append(f"{str(c)}° {p.nome}")
+		nome = self.__tela_batalha.menu_remover_batalha(batalhas)
+		if nome == None:
+			return None
 		
+		b = self.__jogador1.batalhas[int(nome)-1]
+		self.__jogador1.remove_batalha(b)
+		self.__controlador_principal.jogador_DAO.update(self.__jogador1)
+		self.__tela_batalha.mostra_mensagem("batalha removida", f'{nome} removida')
+		return None
+	
 	def lista_batalhas(self):
 		batalhas = []
 		for p in self.__jogador1.batalhas:

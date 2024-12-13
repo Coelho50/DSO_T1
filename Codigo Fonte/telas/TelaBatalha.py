@@ -87,6 +87,20 @@ class TelaBatalha(AbstractTela):
 			return None
 		return None
 	
+	def menu_remover_batalha(self, lista_batalhas):
+		list_box = ui.Listbox(lista_batalhas, size=(70,20), expand_y = True)
+		layout =[
+					[ui.Text("Digite o número da batalha a ser removida:", size=(20,1)), ui.InputText(), ui.Submit(), ui.Button('Return')],
+					[list_box]
+				]
+		window = ui.Window('Remover batalha').Layout(layout)
+		button, dic_valores = window.Read()
+		window.CloseNonBlocking()
+		if button == 'Return':
+			return None
+		return dic_valores[0]
+
+
 	def le_opcao(self, lista_opcoes):
 		while True:
 			print("O que você deseja fazer?")
